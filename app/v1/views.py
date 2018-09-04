@@ -27,26 +27,35 @@ def create_order():
 	order_details.append(new_order)
 	orders[order_id] = order_details
 
-	return jsonify({'message': 'Order placed successfully'})
+	return jsonify({'message': 'Order placed successfully'}), 201
 
 @app.route('/api/v1/orders', methods=['GET'])
 def get_orders():
 	""" Gets all existing orders """
 	if not orders:
-		return jsonify({'message': 'No orders found!'})
+		return jsonify({'message': 'No orders found!'}), 404
 
-	return jsonify({'Orders': orders})
+	return jsonify({'Orders': orders}), 200
 
 @app.route('/api/v1/orders/<order_id>', methods=['GET'])
 def fetch_specific_order(order_id):
 	""" Fetch a specific order using given id"""
 	if not orders:
-		return jsonify({'message': 'Order not found!'})
+		return jsonify({'message': 'Order not found!'}), 404
 
 	the_order = orders[order_id]
-	return jsonify({'Order': the_order})
+	return jsonify({'Order': the_order}), 200
 
 
+@app.route('/api/v1/orders/<order_id>', methods=['PUT'])
+def update_order_status(order_id):
+	""" Updates order status to either accepted, declined, or completed"""
+	if not orders:
+		return jsonify({'message': 'Order not found!'}), 400
+
+	updated_order = orders[order_id]
+	updated_order[0]['status'] = "completed"
+	return jsonify({'message': 'Order updated successfully'}), 200
 
 if __name__ == '__main__':
 	app.run(debug=True)

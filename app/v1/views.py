@@ -32,7 +32,19 @@ def create_order():
 @app.route('/api/v1/orders', methods=['GET'])
 def get_orders():
 	""" Gets all existing orders """
+	if not orders:
+		return jsonify({'message': 'No orders found!'})
+
 	return jsonify({'Orders': orders})
+
+@app.route('/api/v1/orders/<order_id>', methods=['GET'])
+def fetch_specific_order(order_id):
+	""" Fetch a specific order using given id"""
+	if not orders:
+		return jsonify({'message': 'Order not found!'})
+
+	the_order = orders[order_id]
+	return jsonify({'Order': the_order})
 
 
 

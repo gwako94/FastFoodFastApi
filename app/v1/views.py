@@ -11,21 +11,29 @@ orders = Order().orders
 def create_order():
 	data = request.get_json()
 	order_id = str(len(orders) + 1)
-	item_price = menu.get_item_price(data["item"])
-	item_quantity = data["quantity"]
+	item_price = int(menu.get_item_price(data["item"]))
+	item_quantity = int(data["quantity"])
+	total = item_price * item_quantity
 	order_details = []
 	new_order = {
 		"id": order_id,
 		"owner": data["owner"],
 		"item": data["item"],
 		"price": item_price,
-		"quantity": data['quantity'],
-		"total": item_price * item_quantity,
+		"quantity": item_quantity,
+		"total": total,
 		"status": "pending"
 	}
 	order_details.append(new_order)
+	orders[order_id] = order_details
 
 	return jsonify({'message': 'Order placed successfully'})
+
+@app.route('/api/v1/orders', methods=['GET'])
+def get_orders():
+	""" Gets all existing orders """
+	return jsonify({'Orders': orders})
+
 
 
 if __name__ == '__main__':

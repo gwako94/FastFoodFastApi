@@ -29,7 +29,7 @@ class TestUser(unittest.TestCase):
 
         self.assertEqual(res.status_code, 201)
         msg = json.loads(res.data.decode("UTF-8"))
-        self.assertIn("User Registered successfully", msg["message"])
+        self.assertIn("User Registered successfully!", msg["message"])
 
 
 if __name__ == '__main__':

@@ -16,3 +16,9 @@ def register_user():
         confirm_password = data["confirm_password"]
     )
     return jsonify({'message': 'User Registered successfully!'}), 201
+
+@v1_user.route('', methods=['GET'])
+def get_users():
+    all_users = user.get_users()
+
+    return jsonify({'Users': all_users})

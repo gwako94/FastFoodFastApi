@@ -1,3 +1,8 @@
+import datetime
+
+
+now = datetime.datetime.now()
+
 class Menu(object):
 	"""Implements the menu class"""
 	def __init__(self):
@@ -13,6 +18,16 @@ class Order(object):
 	""" Implements order class"""
 	def __init__(self):
 		self.orders = {}
+
+	def place_order(self, user, cart={"item":0}, total=0):
+		new_order = {
+			"id": str(len(self.orders) + 1),
+			"cart": cart,
+			"status": "pending",
+			"created_at": now 
+		}
+		self.orders[user] = new_order
+		return self.orders
 
 
 

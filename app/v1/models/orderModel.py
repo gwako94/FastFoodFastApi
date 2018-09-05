@@ -29,6 +29,30 @@ class Order(object):
 		self.orders[user] = new_order
 		return self.orders
 
+	def get_all_orders(self):
+		if self.orders:
+			return self.orders
+
+	def get_order_by_id(self, order_id):
+		""" Fetch a specific order using given id"""
+		if self.orders:
+			for order in self.orders.values():
+				if order["id"] == order_id:
+					return order
+		
+	def update_order(self, order_id, updated_at=now):
+		""" Method to update status of an order"""
+		updated_order = self.get_order_by_id(order_id)
+		if updated_order:
+			updated_order["status"] = "completed"
+			updated_order["updated_at"] = updated_at
+			return updated_order
+
+
+
+
+
+
 
 
 

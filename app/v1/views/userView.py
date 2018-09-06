@@ -13,8 +13,7 @@ def register_user():
     user.register_user(
         username=data["username"],
         email=data["email"],
-        password=data["password"],
-        confirm_password=data["confirm_password"]
+        password=data["password"]
     )
     return jsonify({'message': 'User Registered successfully!'}), 201
 

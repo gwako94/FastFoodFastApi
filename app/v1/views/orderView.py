@@ -7,15 +7,16 @@ v1_order = Blueprint('orders', __name__)
 menu = Menu()  # Menu instance
 orders = Order()  # Order instance
 
-now = datetime.datetime.now()
-
 
 @v1_order.route('', methods=['POST'])
 def add_order():
     data = request.get_json()
+    cart = data["cart"]
+    total = orders.total(cart)
     orders.place_order(
         user=data["user"],
-            cart=data["cart"]
+        cart=data["cart"],
+        total=total
     )
     return jsonify({'message': 'Order placed successfully'}), 201
 
@@ -43,5 +44,7 @@ def update_order_status(order_id):
     all_orders = orders.get_all_orders()
     if not all_orders:
         return jsonify({'message': 'Order not found!'}), 404
-    orders.update_order(order_id)
+    new_status = "completed"
+    updated_time = datetime.datetime.now()
+    orders.update_order(order_id, new_status, updated_time)
     return jsonify({'message': "Order updated successfully"})

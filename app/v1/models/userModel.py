@@ -1,12 +1,13 @@
 class User(object):
+
     """Implemetnts user class"""
+
     def __init__(self):
         self.users = {}
 
-            
     def register_user(self, username, email, password, confirm_password):
         new_user = {
-            "id":str(len(self.users) + 1),
+            "id": str(len(self.users) + 1),
             "username": username,
             "email": email,
             "password": password,

@@ -8,6 +8,8 @@ script:
   - nosetests --with-coverage --cover-package=app
   - coveralls
 branches:
+  except:
+  - master
   only:
   - challenge2
 after_success:

@@ -13,6 +13,7 @@ nose = "*"
 pyjwt = "*"
 coveralls = "*"
 "pep8" = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.5"

@@ -15,7 +15,7 @@ def create_app(env_name):
   app.register_blueprint(v1_order, url_prefix='/api/v1/orders')
   app.register_blueprint(v1_user, url_prefix="/register")
 
-  @app.route('', methods=['GET'])
+  @app.route('/', methods=['GET'])
   def index():
     return 'This is fast food fast api'
   

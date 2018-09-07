@@ -7,7 +7,7 @@ class Config(object):
 
     DEBUG = False
     TESTING = False
-    SECRET_KEY = os.getenv('SECRET')
+    SECRET_KEY = os.getenv('SECRET_KEY')
 
 
 class TestingConfig(Config):

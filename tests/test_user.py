@@ -28,7 +28,7 @@ class TestUser(unittest.TestCase):
 
         # register a user
         res = self.client.post(
-            '/register',
+            '/api/v1/auth/register',
             data=json.dumps(self.new_user),
             content_type='application/json')
 

@@ -23,3 +23,7 @@ def get_users():
     all_users = user.get_users()
 
     return jsonify({'Users': all_users})
+
+
+        
+

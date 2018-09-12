@@ -4,20 +4,21 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from config import Config
 import jwt
 import datetime
+import os
 from app.v1.auth import userAuth
 v1_user = Blueprint('users', __name__)
 
 users = User()  # User class instance
 
 
-@v1_user.route('', methods=['POST'])
+@v1_user.route('/register', methods=['POST'])
 def register_user():
     data = request.get_json()
-
+    hashed_password = generate_password_hash(data["password"], method="sha256")
     users.register_user(
         username=data["username"],
         email=data["email"],
-        password=data["password"]
+        password=hashed_password
     )
     return jsonify({'message': 'User Registered successfully!'}), 201
 
@@ -36,7 +37,7 @@ def login():
         return make_response('#Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
 
     if check_password_hash(user["password"], auth.password):
-        token = jwt.encode({'public_id' : user["public_id"], 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)})
+        token = jwt.encode({'public_id' : user["public_id"], 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, os.getenv('SECRET_KEY'))
         return jsonify({'token' : token.decode('UTF-8')})
     
     return make_response('@Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})

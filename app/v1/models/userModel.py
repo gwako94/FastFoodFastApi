@@ -10,8 +10,11 @@ class User(object):
         self.users = {}
 
     def register_user(self, username, email, password):
+        user_id = str(len(self.users) + 1)
+        public_id = str(uuid.uuid4())
         new_user = {
-            "public_id": str(uuid.uuid4()),
+            "id": user_id,
+            "public_id": public_id,
             "username": username,
             "email": email,
             "password": password,

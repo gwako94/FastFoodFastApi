@@ -7,7 +7,7 @@ from app.v1.models.userModel import User
 
 user = User() #User instance
 
-def token_required(f):
+def auth_token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         token = None
@@ -19,11 +19,10 @@ def token_required(f):
 
         try:
             data = jwt.decode(token, os.getenv('SECRET_KEY'))
-            if data["username"] in user.users:
-                current_user = user.users[data["username"]]
+            current_user = data["username"]
 
         except:
-            return jsonify({'message', 'Token is invalid!'}), 401
+            return jsonify({'message': 'Token is invalid!'}), 401
 
         return f(current_user, *args, **kwargs)
 

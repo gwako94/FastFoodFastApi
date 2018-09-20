@@ -1,6 +1,5 @@
 from flask import request, jsonify, Blueprint
 from app.v1.models.orderModel import Menu, Order
-from app.v1.auth.userAuth import auth_token_required
 import datetime
 v1_order = Blueprint('orders', __name__)
 
@@ -10,22 +9,20 @@ orders = Order()  # Order instance
 
 
 @v1_order.route('', methods=['POST'])
-@auth_token_required
-def add_order(current_user):
+def add_order():
     data = request.get_json()
     cart = data["cart"]
     total = orders.total(cart)
     orders.place_order(
-        owner=current_user,
-        cart=cart,
+        user=data["user"],
+        cart=data["cart"],
         total=total
     )
     return jsonify({'message': 'Order placed successfully'}), 201
 
 
 @v1_order.route('', methods=['GET'])
-@auth_token_required
-def get_orders(current_user):
+def get_orders():
     """ Gets all existing orders """
     all_orders = orders.get_all_orders()
     if not all_orders:
@@ -35,8 +32,7 @@ def get_orders(current_user):
 
 
 @v1_order.route('<order_id>', methods=['GET'])
-@auth_token_required
-def fetch_specific_order(current_user, order_id):
+def fetch_specific_order(order_id):
     the_order = orders.get_order_by_id(order_id)
     if the_order:
         return jsonify({'Order': the_order}), 200
@@ -44,8 +40,7 @@ def fetch_specific_order(current_user, order_id):
 
 
 @v1_order.route('<order_id>', methods=['PUT'])
-@auth_token_required
-def update_order_status(current_user, order_id):
+def update_order_status(order_id):
     all_orders = orders.get_all_orders()
     if not all_orders:
         return jsonify({'message': 'Order not found!'}), 404

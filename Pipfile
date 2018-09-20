@@ -10,11 +10,10 @@ flask = "*"
 pylint = "*"
 nose = "*"
 "psycopg2" = "*"
+pyjwt = "*"
 coveralls = "*"
 "pep8" = "*"
-pyjwt = "*"
 gunicorn = "*"
-
 
 [requires]
 python_version = "3.5"

@@ -72,3 +72,4 @@ def get_all_users():
     if all_users:
         return jsonify({'Users': all_users})
     return jsonify({'message': 'No users found!'})
+

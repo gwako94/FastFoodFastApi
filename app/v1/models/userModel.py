@@ -26,3 +26,14 @@ class User(object):
     def get_users(self):
         if self.users:
             return self.users
+
+    def get_user_by_id(self, user_id):
+        if self.users:
+            for user in self.users.values():
+                if user['id'] == user_id:
+                    return user
+    def promote_user(self, user_id):
+        user = self.get_user_by_id(user_id)
+        if user:
+            user['admin'] = True
+            return user

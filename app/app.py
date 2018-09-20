@@ -14,5 +14,9 @@ def create_app(env_name):
   app.config.from_object(app_config[env_name])
   app.register_blueprint(v1_order, url_prefix='/api/v1/orders')
   app.register_blueprint(v1_user, url_prefix="/auth")
-  
+
+  @app.route('/', methods=['GET'])
+  def index():
+    return '<h1 style="text-align:center; color:red;">Welcome to fast food fast api <h1>'
+ 
   return app

@@ -110,9 +110,6 @@ class TestUser(unittest.TestCase):
         self.assertTrue(res.content_type == 'application/json')
         self.assertEqual(res.status_code, 200)
         
-    def test_user_login_with_invalid_username(self):
-        pass
-
     def tearDown(self):
         self.users.clear()
         

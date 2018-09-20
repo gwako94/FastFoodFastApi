@@ -1,3 +1,7 @@
+import uuid
+
+
+
 class User(object):
 
     """Implemetnts user class"""
@@ -6,15 +10,17 @@ class User(object):
         self.users = {}
 
     def register_user(self, username, email, password):
+        user_id = str(len(self.users) + 1)
+        public_id = str(uuid.uuid4())
         new_user = {
-            "id": str(len(self.users) + 1),
+            "id": user_id,
+            "public_id": public_id,
             "username": username,
             "email": email,
             "password": password,
             "admin": False
         }
-        user_id = str(len(self.users) + 1)
-        self.users[user_id] = new_user
+        self.users[username] = new_user
         return self.users
 
     def get_users(self):

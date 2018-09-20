@@ -9,6 +9,7 @@ class Menu(object):
     """Implements the menu class"""
 
     def __init__(self):
+        """Available menu"""
         self.menu = {
             "burger": 500,
                 "milkshake": 300,
@@ -26,32 +27,34 @@ class Order(object):
     def __init__(self):
         self.orders = {}
 
-    def place_order(self, user, cart={"item": 0}, total=0):
-        """ Methods creates a new order"""
+    def place_order(self, owner, cart={"item": 0}, total=0):
+        """ Method creates a new order"""
+        order_id = str(len(self.orders) + 1)
         new_order = {
-            "id": str(len(self.orders) + 1),
+            "id": order_id,
+                "owner": owner,
                 "cart": cart,
                 "total":total,
                 "status": "pending",
                 "created_at": now
         }
-        self.orders[user] = new_order
+        self.orders[order_id] = new_order
         return self.orders
 
     def get_all_orders(self):
-        """ method fetch all existing orders"""
+        """method fetchs all existing orders"""
         if self.orders:
             return self.orders
 
     def get_order_by_id(self, order_id):
-        """ Fetch a specific order using given id"""
+        """Fetch a specific order using given id"""
         if self.orders:
             for order in self.orders.values():
                 if order["id"] == order_id:
                     return order
 
     def update_order(self, order_id, status, updated_at):
-        """ Method to update status of an order"""
+        """Method updates status of an order"""
         updated_order = self.get_order_by_id(order_id)
         if updated_order:
             updated_order["status"] = status

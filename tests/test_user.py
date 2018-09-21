@@ -9,10 +9,6 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 
 from app.app import create_app
-from app.v1.models.userModel import User
-
-user = User()
-
 
 
 class TestUser(unittest.TestCase):
@@ -27,34 +23,16 @@ class TestUser(unittest.TestCase):
             "password": "test2pass"
         }
 
-        self.login = {
-            "username": "test",
-            "password": "testpass"
-        }
-        self.users = user.users
-
     def test_register_user(self):
         """ Test new user can be created! """
 
         # register a user
         res = self.client.post(
-            'auth/register',
+            '/api/v1/auth/register',
             data=json.dumps(self.new_user),
             content_type='application/json')
 
-        msg = json.loads(res.data.decode("UTF-8"))
-        self.assertIn('User Registered successfully!', msg['message'])
-        self.assertTrue(res.content_type == 'application/json')
         self.assertEqual(res.status_code, 201)
-
-    def test_register_with_already_registered_user(self):
-        # Try to register a registered user!
-        res = self.client.post(
-            '/auth/register',
-            data=json.dumps(self.new_user),
-            content_type='application/json')
-            
-            
         msg = json.loads(res.data.decode("UTF-8"))
         self.assertIn('User already exists. Please Log in.', msg['message'])
         self.assertTrue(res.content_type == 'application/json')

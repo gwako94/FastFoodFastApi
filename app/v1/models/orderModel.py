@@ -28,14 +28,15 @@ class Order(object):
 
     def place_order(self, user, cart={"item": 0}, total=0):
         """ Methods creates a new order"""
+        order_id = str(len(self.orders) + 1)
         new_order = {
-            "id": str(len(self.orders) + 1),
+            "id": order_id,
                 "cart": cart,
                 "total":total,
                 "status": "pending",
                 "created_at": now
         }
-        self.orders[user] = new_order
+        self.orders[order_id] = new_order
         return self.orders
 
     def get_all_orders(self):

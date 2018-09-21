@@ -40,11 +40,14 @@ def fetch_specific_order(order_id):
 
 
 @v1_order.route('<order_id>', methods=['PUT'])
-def update_order_status(order_id):
+@auth_token_required
+def update_order_status(current_user, order_id):
+    data = request.get_json()
+
     all_orders = orders.get_all_orders()
     if not all_orders:
         return jsonify({'message': 'Order not found!'}), 404
-    new_status = "completed"
+    new_status = data['status']
     updated_time = datetime.datetime.now()
     orders.update_order(order_id, new_status, updated_time)
     return jsonify({'message': "Order updated successfully"})

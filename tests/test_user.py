@@ -18,9 +18,9 @@ class TestUser(unittest.TestCase):
         self.client = self.app.test_client()
 
         self.new_user = {
-            "username": "gwako",
-            "email": "g@example.com",
-            "password": "qwerty12",
+            "username": "test2",
+            "email": "test2@example.com",
+            "password": "test2pass"
         }
 
     def test_register_user(self):
@@ -34,7 +34,67 @@ class TestUser(unittest.TestCase):
 
         self.assertEqual(res.status_code, 201)
         msg = json.loads(res.data.decode("UTF-8"))
-        self.assertIn("User Registered successfully!", msg["message"])
+        self.assertIn('User already exists. Please Log in.', msg['message'])
+        self.assertTrue(res.content_type == 'application/json')
+        self.assertEqual(res.status_code, 400)
+
+    def test_register_with_missing_username(self):
+        self.new_user['username'] = ""
+        res = self.client.post(
+            'auth/register',
+            data=json.dumps(self.new_user),
+            content_type='application/json')
+
+        msg = json.loads(res.data.decode("UTF-8"))
+        self.assertIn('Username cannot be empty!', msg['message'])
+        self.assertTrue(res.content_type == 'application/json')
+        self.assertEqual(res.status_code, 400)
+        
+    def test_register_with_missing_email(self):
+        self.new_user['email'] = ""
+        res = self.client.post(
+            'auth/register',
+            data=json.dumps(self.new_user),
+            content_type='application/json')
+
+        msg = json.loads(res.data.decode("UTF-8"))
+        self.assertIn('Email cannot be empty!', msg['message'])
+        self.assertTrue(res.content_type == 'application/json')
+        self.assertEqual(res.status_code, 400)
+
+    def test_register_with_missing_password(self):
+        self.new_user['password'] = ""
+        res = self.client.post(
+            'auth/register',
+            data=json.dumps(self.new_user),
+            content_type='application/json')
+
+        msg = json.loads(res.data.decode("UTF-8"))
+        self.assertIn('Password cannot be empty!', msg['message'])
+        self.assertTrue(res.content_type == 'application/json')
+        self.assertEqual(res.status_code, 400)
+
+    def test_registered_user_login(self):
+        self.client.post(
+            'auth/register',
+            data=json.dumps(self.new_user),
+            content_type='application/json')
+
+        res = self.client.post(
+            'auth/login',
+            data=json.dumps(self.new_user),
+            content_type='application/json')
+
+        self.assertTrue(res.content_type == 'application/json')
+        self.assertEqual(res.status_code, 200)
+        
+    def test_user_login_with_invalid_username(self):
+        pass
+
+    def tearDown(self):
+        self.users = user.users
+        self.users.clear()
+        
 
 if __name__ == '__main__':
     unittest.main()

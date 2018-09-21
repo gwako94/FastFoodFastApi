@@ -7,13 +7,10 @@ name = "pypi"
 
 [packages]
 flask = "*"
-pylint = "*"
 nose = "*"
-"psycopg2" = "*"
-pyjwt = "*"
 coveralls = "*"
-"pep8" = "*"
-gunicorn = "*"
+pyjwt = "*"
+"psycopg2-binary" = "*"
 
 [requires]
 python_version = "3.5"

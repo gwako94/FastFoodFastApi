@@ -92,19 +92,19 @@ class TestUser(unittest.TestCase):
         self.assertTrue(res.content_type == 'application/json')
         self.assertEqual(res.status_code, 400)
 
-    def test_registered_user_login(self):
-        self.client.post(
-            'auth/register',
-            data=json.dumps(self.new_user),
-            content_type='application/json')
+    # def test_registered_user_login(self):
+    #     self.client.post(
+    #         'auth/register',
+    #         data=json.dumps(self.new_user),
+    #         content_type='application/json')
 
-        res = self.client.post(
-            'auth/login',
-            data=json.dumps(self.new_user),
-            content_type='application/json')
+    #     res = self.client.post(
+    #         'auth/login',
+    #         data=json.dumps(self.new_user),
+    #         content_type='application/json')
 
-        self.assertTrue(res.content_type == 'application/json')
-        self.assertEqual(res.status_code, 200)
+    #     self.assertTrue(res.content_type == 'application/json')
+    #     self.assertEqual(res.status_code, 200)
         
 
 if __name__ == '__main__':

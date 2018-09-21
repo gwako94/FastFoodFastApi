@@ -22,21 +22,39 @@ class TestUser(unittest.TestCase):
             "email": "test2@example.com",
             "password": "test2pass"
         }
-
-    def test_register_user(self):
-        """ Test new user can be created! """
+    def test_register_new_user(self):
+        """ Test existing user register """
 
         # register a user
         res = self.client.post(
-            '/api/v1/auth/register',
+            '/auth/register',
             data=json.dumps(self.new_user),
             content_type='application/json')
 
         self.assertEqual(res.status_code, 201)
         msg = json.loads(res.data.decode("UTF-8"))
-        self.assertIn('User already exists. Please Log in.', msg['message'])
+        self.assertIn('User Registered successfully!', msg['message'])
         self.assertTrue(res.content_type == 'application/json')
-        self.assertEqual(res.status_code, 400)
+
+    # def test_register_already_registered_user(self):
+    #     """ Test existing user register """
+
+    #     # register a user
+    #     self.client.post(
+    #         '/auth/register',
+    #         data=json.dumps(self.new_user),
+    #         content_type='application/json')
+            
+    #     #try registering the user again
+    #     res = self.client.post(
+    #         '/auth/register',
+    #         data=json.dumps(self.new_user),
+    #         content_type='application/json')
+
+    #     msg = json.loads(res.data.decode("UTF-8"))
+    #     self.assertIn('User already exists. Please Log in.', msg['message'])
+    #     self.assertTrue(res.content_type == 'application/json')
+    #     self.assertEqual(res.status_code, 400)
 
     def test_register_with_missing_username(self):
         self.new_user['username'] = ""
@@ -87,13 +105,6 @@ class TestUser(unittest.TestCase):
 
         self.assertTrue(res.content_type == 'application/json')
         self.assertEqual(res.status_code, 200)
-        
-    def test_user_login_with_invalid_username(self):
-        pass
-
-    def tearDown(self):
-        self.users = user.users
-        self.users.clear()
         
 
 if __name__ == '__main__':

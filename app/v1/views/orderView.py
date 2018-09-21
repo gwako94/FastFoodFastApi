@@ -15,7 +15,7 @@ def add_order():
     total = orders.total(cart)
     orders.place_order(
         user=data["user"],
-        cart=data["cart"],
+        cart=cart,
         total=total
     )
     return jsonify({'message': 'Order placed successfully'}), 201
@@ -40,8 +40,7 @@ def fetch_specific_order(order_id):
 
 
 @v1_order.route('<order_id>', methods=['PUT'])
-@auth_token_required
-def update_order_status(current_user, order_id):
+def update_order_status(order_id):
     data = request.get_json()
 
     all_orders = orders.get_all_orders()

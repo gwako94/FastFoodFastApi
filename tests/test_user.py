@@ -22,9 +22,9 @@ class TestUser(unittest.TestCase):
         self.client = self.app.test_client()
 
         self.new_user = {
-            "username": "test",
-            "email": "test@example.com",
-            "password": "testpass"
+            "username": "test2",
+            "email": "test2@example.com",
+            "password": "test2pass"
         }
 
         self.login = {
@@ -114,6 +114,7 @@ class TestUser(unittest.TestCase):
         pass
 
     def tearDown(self):
+        self.users = user.users
         self.users.clear()
         
 

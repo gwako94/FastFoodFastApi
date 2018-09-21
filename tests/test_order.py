@@ -9,7 +9,10 @@ parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 
 from app.app import create_app
-
+from app.v1.models.userModel import User
+from app.v1.models.orderModel import Order
+user = User()
+order = Order()
 
 class TestOrder(unittest.TestCase):
 
@@ -121,6 +124,12 @@ class TestOrder(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         msg = json.loads(res.data.decode("UTF-8"))
         self.assertIn("Order updated successfully", msg['message'])
+        
+    def tearDown(self):
+        self.users = user.users
+        self.orders = order.orders
+        self.users.clear()
+        self.orders.clear()
 
 if __name__ == '__main__':
     unittest.main()

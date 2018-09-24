@@ -26,6 +26,22 @@ class TestOrder(unittest.TestCase):
             "user": "Galgallo",
                 "cart": {"burger": 2}
         }
+        self.new_user = {
+            "username": "test2",
+            "email": "test2@example.com",
+            "password": "test2pass"
+        }
+        self.register = self.client.post(
+            '/auth/register',
+            data=json.dumps(self.new_user),
+            content_type='application/json')
+
+        self.login = self.client.post(
+            '/auth/login',
+            data=json.dumps(self.new_user),
+            content_type='application/json')
+        self.data = json.loads(self.login.data.decode("UTF-8"))
+        self.token = self.data['token']
 
     def test_order_placement(self):
         """ Test new order can be added """
@@ -34,7 +50,9 @@ class TestOrder(unittest.TestCase):
         res = self.client.post(
             'api/v1/orders',
             data=json.dumps(self.add_order),
-            content_type='application/json')
+            content_type='application/json',
+            headers=
+            {'x-access-token': self.token})
         self.assertEqual(res.status_code, 201)
         msg = json.loads(res.data.decode("UTF-8"))
         self.assertIn("Order placed successfully", msg["message"])
@@ -45,10 +63,15 @@ class TestOrder(unittest.TestCase):
         # Place an order
         self.client.post('api/v1/orders',
                          data=json.dumps(self.add_order),
-                         content_type='application/json')
+                         content_type='application/json',
+                         headers=
+                            {'x-access-token': self.token})
 
         # get orders
-        res = self.client.get('api/v1/orders', content_type='application/json')
+        res = self.client.get('api/v1/orders', 
+                               content_type='application/json',
+                               headers=
+                                {'x-access-token': self.token})
         self.assertEqual(res.status_code, 200)
 
     def test_fetch_a_specific_order(self):
@@ -56,18 +79,24 @@ class TestOrder(unittest.TestCase):
         # Place an order
         res = self.client.post('api/v1/orders',
                                data=json.dumps(self.add_order),
-                               content_type='application/json')
+                               content_type='application/json',
+                               headers=
+                                {'x-access-token': self.token})
 
         res = self.client.get(
             'api/v1/orders/1',
-            content_type='application/json')
+            content_type='application/json',
+            headers=
+            {'x-access-token': self.token})
         self.assertEqual(res.status_code, 200)
 
     def test_specific_order_not_found(self):
         """Test when a specific order is missing """
         res = self.client.get(
             'api/v1/orders/27',
-            content_type='application/json')
+            content_type='application/json',
+            headers=
+            {'x-access-token': self.token})
         self.assertEqual(res.status_code, 404)
         msg = json.loads(res.data.decode("UTF-8"))
         self.assertIn("Order not found!", msg["message"])
@@ -78,11 +107,15 @@ class TestOrder(unittest.TestCase):
         self.client.post(
             'api/v1/orders',
             data=json.dumps(self.add_order),
-            content_type='application/json')
+            content_type='application/json',
+            headers=
+            {'x-access-token': self.token})
         res = self.client.put(
             'api/v1/orders/1',
             data=json.dumps(dict(status="completed")),
-            content_type='application/json')
+            content_type='application/json',
+            headers=
+            {'x-access-token': self.token})
         self.assertEqual(res.status_code, 200)
         msg = json.loads(res.data.decode("UTF-8"))
         self.assertIn("Order updated successfully", msg['message'])

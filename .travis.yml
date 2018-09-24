@@ -4,7 +4,7 @@ python:
 install:
   - pipenv install
 script: 
-  - nosetests --with-coverage --cover-package=app
+  - nosetests --with-coverage --cover-package=app tests/
   - coveralls
 branches:
   except:

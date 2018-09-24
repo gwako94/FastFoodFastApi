@@ -23,12 +23,13 @@ def register_user():
     if not passsword:
         return jsonify({'message': 'Password cannot be empty!'}), 400
 
-    hashed_password = generate_password_hash(passsword)
+    hashed_password = generate_password_hash(passsword, method='sha256')
+
     users.register_user(
-        username=username,
-        email=email,
-        password=hashed_password
-    )
+            username=username,
+            email=email,
+            password=hashed_password
+        )
     return jsonify({'message': 'User Registered successfully!'}), 201
 
 @v1_user.route('/login', methods=['POST'])
@@ -45,15 +46,17 @@ def login():
         return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
 
     if check_password_hash(user["password"], auth["password"]):
-        token = jwt.encode({'username' : user["username"], 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, os.getenv('SECRET_KEY'))
-        return jsonify({'token' : token.decode('UTF-8')})
+        token = jwt.encode({"username": user["username"], "exp":datetime.datetime.utcnow() + datetime.timedelta(minutes=60)}, os.getenv('SECRET_KEY'))
+        return jsonify({'message': 'Login success!',
+                        'token' : token.decode('UTF-8')})
     
     return make_response('Could not verify', 401, {'WWW-Authenticate' : 'Basic realm="Login required!"'})
 
 @v1_user.route('/users', methods=['GET'])
 def get_users():
     all_users = users.get_users()
-
+    if not all_users:
+        return jsonify({'message': 'No users found!'})
     return jsonify({'Users': all_users})
 
 

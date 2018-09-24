@@ -24,10 +24,11 @@ def auth_token_required(f):
 
         try:
             data = jwt.decode(token, os.getenv('SECRET_KEY'))
-            current_user = users[data["username"]]
+            print(data)
+            current_user = data["username"]
 
         except:
-            return jsonify({'message', 'Token is invalid!'}), 401
+            return jsonify({'message': 'Token is invalid!'}), 401
 
         return f(current_user, *args, **kwargs)
 

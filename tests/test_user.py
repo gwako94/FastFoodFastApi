@@ -22,8 +22,9 @@ class TestUser(unittest.TestCase):
             "email": "test2@example.com",
             "password": "test2pass"
         }
+
     def test_register_new_user(self):
-        """ Test existing user register """
+        """ Test new user register """
 
         # register a user
         res = self.client.post(
@@ -57,6 +58,7 @@ class TestUser(unittest.TestCase):
     #     self.assertEqual(res.status_code, 400)
 
     def test_register_with_missing_username(self):
+        """Test user missing username"""
         self.new_user['username'] = ""
         res = self.client.post(
             'auth/register',
@@ -69,6 +71,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(res.status_code, 400)
         
     def test_register_with_missing_email(self):
+        """Test user missing email"""
         self.new_user['email'] = ""
         res = self.client.post(
             'auth/register',
@@ -81,6 +84,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(res.status_code, 400)
 
     def test_register_with_missing_password(self):
+        """Test user missing password"""
         self.new_user['password'] = ""
         res = self.client.post(
             'auth/register',
@@ -92,19 +96,20 @@ class TestUser(unittest.TestCase):
         self.assertTrue(res.content_type == 'application/json')
         self.assertEqual(res.status_code, 400)
 
-    # def test_registered_user_login(self):
-    #     self.client.post(
-    #         'auth/register',
-    #         data=json.dumps(self.new_user),
-    #         content_type='application/json')
+    def test_registered_user_login(self):
+        self.client.post(
+            'auth/register',
+            data=json.dumps(self.new_user),
+            content_type='application/json')
 
-    #     res = self.client.post(
-    #         'auth/login',
-    #         data=json.dumps(self.new_user),
-    #         content_type='application/json')
-
-    #     self.assertTrue(res.content_type == 'application/json')
-    #     self.assertEqual(res.status_code, 200)
+        res = self.client.post(
+            'auth/login',
+            data=json.dumps(self.new_user),
+            content_type='application/json')
+        msg = json.loads(res.data.decode('UTF-8'))
+        self.assertIn('Login success!', msg['message'])
+        self.assertTrue(res.content_type == 'application/json')
+        self.assertEqual(res.status_code, 200)
         
 
 if __name__ == '__main__':

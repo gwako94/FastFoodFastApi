@@ -10,7 +10,7 @@ branches:
   except:
   - master
   only:
-  - challenge2
+  - develop
 after_success:
  - coveralls
 notifications:

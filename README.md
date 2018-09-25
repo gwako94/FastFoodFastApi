@@ -65,3 +65,9 @@ update an order and retrieve orders.
 <p>Run the tests: </p>
 <pre><code> $ nosetests </code></pre>
 
+<h2>Author</h2>
+  <li><a href="https://github.com/gwako94">Galgallo Wako</a></li>
+  
+<h2>License</h2>
+  <p>MIT License<p>
+

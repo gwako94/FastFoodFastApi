@@ -16,8 +16,8 @@ update an order and retrieve orders.
   <li><p>Have python3 installed:</p><pre><code>python --v
     >> Python 3.5.2</code></pre></li>
   <li><p>Install pipenv:</p><pre><code>pip install pipenv</code></pre></li>
-  <li><p>Check pipenv has been installed:</p><code></code>pipenv --version
-   >> pipenv, version 2018.7.1</pre></li>
+  <li><p>Check pipenv has been installed:</p><code>pipenv --version
+   >> pipenv, version 2018.7.1</code></pre></li>
   <li><p>Clone the active-api repo and cd into it:</p><code>https://github.com/gwako94/FastFoodFastApi.git</code></pre></li>
   <li><p>Install dependencies:</p><code>pipenv install</code></pre></li>
   <li><p>Activate a virtual environment:</p><code>pipenv shell</code></pre></li>

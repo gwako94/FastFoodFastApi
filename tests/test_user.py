@@ -20,9 +20,9 @@ class TestUser(unittest.TestCase):
         self.client = self.app.test_client()
         self.users_inst = User()
         self.new_user = {
-            "username": "test2",
-            "email": "test2@example.com",
-            "password": "test2pass"
+            "username": "test1",
+            "email": "test1@example.com",
+            "password": "test1pass"
         }
         self.new_user2 = {
             "username": "test",

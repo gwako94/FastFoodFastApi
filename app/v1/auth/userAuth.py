@@ -24,7 +24,6 @@ def auth_token_required(f):
 
         try:
             data = jwt.decode(token, os.getenv('SECRET_KEY'))
-            print(data)
             current_user = data["username"]
 
         except:

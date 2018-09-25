@@ -60,6 +60,17 @@ update an order and retrieve orders.
       </tr>
   </tbody>
 </table>
+<h2>Screenshots</h2>
+
+![get](https://user-images.githubusercontent.com/25703581/46033612-4caae480-c107-11e8-9d5c-b8ff68731e95.png)
+
+![login](https://user-images.githubusercontent.com/25703581/46033613-4ddc1180-c107-11e8-9f31-06250c00fe8b.png)
+
+![place_order](https://user-images.githubusercontent.com/25703581/46033614-4ddc1180-c107-11e8-848b-d4f52f126cd5.png)
+
+![register](https://user-images.githubusercontent.com/25703581/46033618-4ddc1180-c107-11e8-8cfa-c191026debe4.png)
+
+![update](https://user-images.githubusercontent.com/25703581/46033619-4e74a800-c107-11e8-9105-be04708e04d9.png)
 
 <h2>Testing</h2>
 <p>Run the tests: </p>
@@ -70,4 +81,5 @@ update an order and retrieve orders.
   
 <h2>License</h2>
   <p>MIT License<p>
+
 

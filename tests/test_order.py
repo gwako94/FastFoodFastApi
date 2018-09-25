@@ -40,8 +40,7 @@ class TestOrder(unittest.TestCase):
             '/auth/login',
             data=json.dumps(self.new_user),
             content_type='application/json')
-        #python3 returns tokens as bytes, converted it to string
-        self.data = json.loads(self.login.get_data(as_text=True))
+        self.data = json.loads(self.login.data.decode("UTF-8"))
         self.token = self.data['token']
 
     def test_order_placement(self):

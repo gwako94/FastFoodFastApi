@@ -69,19 +69,23 @@ Register User:
 	"email": "test@235",
 	"password": "@andela"
 }
+
 Login User:
 {
 	"username": "galgallo",
 	"password": "@andela"
 }
+
 Post order:
 {
 	"cart": { "burger": 2}
 }
+
 Update Order:
 {
 	"status": "completed"
 }
+
 </code></pre>
 
 

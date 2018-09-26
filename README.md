@@ -15,7 +15,7 @@ update an order and retrieve orders.
 <ul>
   <li><p>Have python3 installed:</p><pre><code>python --v
     >> Python 3.5.2</code></pre></li>
-  <li><p>Clone the active-api repo and cd into it:</p><code>https://github.com/gwako94/FastFoodFastApi.git</code></pre>         </li>
+  <li><p>Clone the active-api repo and cd into it:</p><code>git clone --single-branch -b challenge-2-final  https://github.com/gwako94/FastFoodFastApi.git</code></pre>         </li>
   <li><p>Install virtualenv:</p><pre><code>pip install virtualenv</code></pre></li>
   <li><p>Create a virtual environment:</p><pre><code>virtualenv -p python3 venv</code></pre></li>
    <li><p>Activate the virtual environment:</p><pre><code>source venv/bin/activate</code></pre></li>

@@ -61,7 +61,7 @@ update an order and retrieve orders.
   </tbody>
 </table>
 
-<p><em>Sample order data</em><p>
+<p><em>Sample test data</em><p>
 <pre><code>
 Register User:
 {

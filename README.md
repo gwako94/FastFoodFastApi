@@ -21,7 +21,7 @@ update an order and retrieve orders.
    <li><p>Activate the virtual environment:</p><pre><code>source venv/bin/activate</code></pre></li>
   <li><p>Install dependencies:</p><pre><code>pip install -r requirements.txt</code></pre></li>
   <li><p>Check that dependencies have been installed:</p><pre><code>pip freeze</code></pre></li>
-   <li><p>Set environment varibales:</p><pre><code>source .env</code></pre></li>
+   <li><p>Set environment variables:</p><pre><code>source .env</code></pre></li>
 
 </ul>
 

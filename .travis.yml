@@ -2,7 +2,8 @@ language: python
 python:
   - "3.5"
 install:
-  - pipenv install
+  - pip install -r requirements.txt
+  - pip install coveralls
 script: 
   - nosetests --with-coverage --cover-package=app tests/
   - coveralls

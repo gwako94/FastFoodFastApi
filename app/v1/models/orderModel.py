@@ -67,4 +67,4 @@ class Order(object):
         for item, quantity in cart.items():
             price = menu.get_item_price(item)
             total += price * quantity
-            return total
+        return total

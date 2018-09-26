@@ -16,12 +16,8 @@ def register_user():
     email = data["email"].strip()
     passsword = data["password"].strip()
 
-    if not username:
-        return jsonify({'message': 'Username cannot be empty!'}), 400
-    elif not email:
-        return jsonify({'message': 'Email cannot be empty!'}), 400
-    elif not passsword:
-        return jsonify({'message': 'Password cannot be empty!'}), 400
+    if not username or email or passsword:
+        return jsonify({'message': 'Please input all fields!'}), 400
 
     if data['username'] in user_inst.users:
         return jsonify({'message': 'User already exists. Please Log in.'}), 400

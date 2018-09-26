@@ -21,7 +21,7 @@ update an order and retrieve orders.
   <li><p>Clone the active-api repo and cd into it:</p><code>https://github.com/gwako94/FastFoodFastApi.git</code></pre></li>
   <li><p>Install dependencies:</p><code>pipenv install</code></pre></li>
   <li><p>Activate a virtual environment:</p><code>pipenv shell</code></pre></li>
-  <li><p>Deactivate the virtual environment oncedone:</p><code>exit</code></pre></li>
+  <li><p>Deactivate the virtual environment once done:</p><code>exit</code></pre></li>
 </ul>
 
 <h2>Running the application</h2>

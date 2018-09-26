@@ -1,4 +1,6 @@
 __pycache__/
+__pycache__
+venv
 *.pyc
 .pytest_cache/
 .coverage
@@ -6,3 +8,5 @@ __pycache__/
 freezee
 .cache/
 .vscode
+.coverage
+*__pycache__

@@ -15,14 +15,14 @@ def register_user():
     username = data["username"].strip()
     email = data["email"].strip()
     passsword = data["password"].strip()
+    hashed_password = generate_password_hash(passsword, method='sha256')
 
-    if not username or email or passsword:
-        return jsonify({'message': 'Please input all fields!'}), 400
-
+    if not username or not email or not passsword:
+        return jsonify({'message': 'Please input all required fields!'}), 400
+        
     if data['username'] in user_inst.users:
         return jsonify({'message': 'User already exists. Please Log in.'}), 400
 
-    hashed_password = generate_password_hash(passsword, method='sha256') 
     user_inst.register_user(
             username=username,
             email=email,

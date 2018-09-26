@@ -73,7 +73,7 @@ class TestUser(unittest.TestCase):
             content_type='application/json')
 
         msg = json.loads(res.data.decode("UTF-8"))
-        self.assertIn('Username cannot be empty!', msg['message'])
+        self.assertIn('Please input all required fields!', msg['message'])
         self.assertTrue(res.content_type == 'application/json')
         self.assertEqual(res.status_code, 400)
         
@@ -86,7 +86,7 @@ class TestUser(unittest.TestCase):
             content_type='application/json')
 
         msg = json.loads(res.data.decode("UTF-8"))
-        self.assertIn('Email cannot be empty!', msg['message'])
+        self.assertIn('Please input all required fields!', msg['message'])
         self.assertTrue(res.content_type == 'application/json')
         self.assertEqual(res.status_code, 400)
 
@@ -99,7 +99,7 @@ class TestUser(unittest.TestCase):
             content_type='application/json')
 
         msg = json.loads(res.data.decode("UTF-8"))
-        self.assertIn('Password cannot be empty!', msg['message'])
+        self.assertIn('Please input all required fields!', msg['message'])
         self.assertTrue(res.content_type == 'application/json')
         self.assertEqual(res.status_code, 400)
 

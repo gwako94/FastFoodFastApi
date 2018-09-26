@@ -6,3 +6,6 @@ __pycache__/
 freezee
 .cache/
 .vscode
+pipfile
+.coverage
+pipfile.lock

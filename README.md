@@ -60,6 +60,31 @@ update an order and retrieve orders.
       </tr>
   </tbody>
 </table>
+
+<p><em>Sample order data</em><p>
+<pre><code>
+Register User:
+{
+	"username": "galgallo",
+	"email": "test@235",
+	"password": "@andela"
+}
+Login User:
+{
+	"username": "galgallo",
+	"password": "@andela"
+}
+Post order:
+{
+	"cart": { "burger": 2}
+}
+Update Order:
+{
+	"status": "completed"
+}
+</code></pre>
+
+
 <h2>Screenshots</h2>
 
 ![get](https://user-images.githubusercontent.com/25703581/46033612-4caae480-c107-11e8-9d5c-b8ff68731e95.png)

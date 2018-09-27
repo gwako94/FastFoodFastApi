@@ -56,9 +56,5 @@ class Database(object):
         for query in queries:
             self.cur.execute(query)
             self.conn.commit()
-            print("All tables created successfully!")
+        print("All tables created successfully!")
         self.cur.close()
-        self.conn.close()
-
-db = Database()
-db.create_tables()

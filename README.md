@@ -27,6 +27,9 @@ update an order and retrieve orders.
 
 <h2>Running the application</h2>
 <p><pre><code>python3 run.py</code></pre></p>
+<p>Using <a href=https://www.getpostman.com/apps>Postman</a> test the orders endpoint with the below header
+
+&emsp;&emsp;<code>x-access-token</code>: Token generated after you <code>/auth/login</code>
 <p>Fire up postman and tests all the endpoints below:</p>
 <table>
   <thead>

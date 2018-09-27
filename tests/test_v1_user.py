@@ -3,6 +3,7 @@ import json
 import os
 import sys
 import inspect
+
 currentdir = os.path.dirname(os.path.abspath(
     inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -70,7 +71,7 @@ class TestUser(unittest.TestCase):
         res = self.client.post(
             'auth/register',
             data=json.dumps(self.new_user),
-            content_type='application/json')
+            content_type='application/json') 
 
         msg = json.loads(res.data.decode("UTF-8"))
         self.assertIn('Please input all required fields!', msg['message'])

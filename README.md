@@ -26,7 +26,7 @@ update an order and retrieve orders.
 </ul>
 
 <h2>Running the application</h2>
-<p><pre><code>flask run</code></pre></p>
+<p><pre><code>python3 run.py</code></pre></p>
 <p>Fire up postman and tests all the endpoints below:</p>
 <table>
   <thead>

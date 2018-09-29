@@ -14,9 +14,7 @@ def register_user():
         data['email'],
         data['password']
     )
-    try:
-        user_details.register_user()
-        return jsonify({'message': 'User registered successfully!'})
-    except:
-        return jsonify({'message': 'User already exists!'})
+  
+    user_details.register_user()
+    return jsonify({'message': 'User registered successfully!'})
 

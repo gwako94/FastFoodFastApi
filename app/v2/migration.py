@@ -33,9 +33,8 @@ class Database(object):
 
         menu =  '''CREATE TABLE IF NOT EXISTS menu(
                     menu_id SERIAL PRIMARY KEY,
-                    name VARCHAR(50) NOT NULL,
-                    image VARCHAR(270) NOT NULL,
-                    description VARCHAR(350) NOT NULL,
+                    item_name VARCHAR(50) NOT NULL,
+                    image_url VARCHAR(270) NOT NULL,
                     price numeric NOT NULL,
                     created_at TIMESTAMP
                     
@@ -59,6 +58,6 @@ class Database(object):
         print("All tables created successfully!")
         self.cur.close()
 
-        
+
 db = Database()
 db.create_tables()

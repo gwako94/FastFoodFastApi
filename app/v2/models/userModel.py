@@ -3,6 +3,7 @@ from ..migration import Database
 
 now = datetime.datetime.now()
 db = Database()
+cur = db.conn.cursor()
 class User(object):
 
     """ Implements user class"""
@@ -13,11 +14,8 @@ class User(object):
         self.admin = admin
         self.created_at = now
         
-        self.cur = db.conn.cursor()
-        
-
     def register_user(self):
         query = "INSERT INTO users (username, email, password, admin, created_at) VALUES (%s, %s, %s, %s, %s);"
-        self.cur.execute(query, (self.username, self.email, self.password, self.admin, self.created_at))
+        cur.execute(query, (self.username, self.email, self.password, self.admin, self.created_at))
         db.conn.commit()
-        self.cur.close()
+        cur.close()

@@ -1,5 +1,6 @@
 """Implements database"""
 import psycopg2
+from psycopg2.extras import RealDictCursor
 import os
 
 
@@ -14,10 +15,11 @@ class Database(object):
 
         try:
             self.conn = psycopg2.connect(host=self.host, dbname=self.name, user=self.user, password=self.password)
+            self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
         except:
             print("Unable to connect to the database")
 
-        self.cur = self.conn.cursor()
+
     
     def create_tables(self):
         """ Method to create tables """
@@ -57,7 +59,3 @@ class Database(object):
             self.conn.commit()
         print("All tables created successfully!")
         self.cur.close()
-
-
-db = Database()
-db.create_tables()

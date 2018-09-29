@@ -6,7 +6,7 @@ db = Database()
 class User(object):
 
     """ Implements user class"""
-    def __init__(self, username, email, password, admin=False):
+    def __init__(self, username, email, password, admin=True):
         self.username = username
         self.email = email
         self.password = password

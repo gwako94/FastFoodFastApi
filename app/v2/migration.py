@@ -8,12 +8,12 @@ class Database(object):
     #constructor initialize environment
     def __init__(self):
         self.host = os.getenv('HOST')
-        self.dbname = os.getenv('DEV_DB')
+        self.name = os.getenv('DEV_DB')
         self.user = os.getenv('USER')
         self.password = os.getenv('PASSWORD')
 
         try:
-            self.conn = psycopg2.connect(host=self.host, dbname=self.dbname, user=self.user, password=self.password)
+            self.conn = psycopg2.connect(host=self.host, dbname=self.name, user=self.user, password=self.password)
         except:
             print("Unable to connect to the database")
 
@@ -58,3 +58,7 @@ class Database(object):
             self.conn.commit()
         print("All tables created successfully!")
         self.cur.close()
+
+        
+db = Database()
+db.create_tables()

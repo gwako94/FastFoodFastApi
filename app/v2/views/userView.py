@@ -26,10 +26,12 @@ def register_user():
         data['email'],
         hashed_password
     )
-  
-    if user_details.register_user():
-        return jsonify({'message': 'User Registered successfully!'}), 201
-    return jsonify({'message': 'User already exists!'}), 400
+    try:
+        if user_details.register_user():
+            return jsonify({'message': 'User Registered successfully!'}), 201
+        return jsonify({'message': 'User already exists!'}), 400
+    except psycopg2.IntegrityError:
+        return jsonify({'message': 'Email has been registered!'}), 400
 
 @v2_user.route('/login', methods=['POST'])
 def login():
@@ -48,7 +50,7 @@ def login():
     if check_password_hash(user['password'], auth["password"]):
         token = jwt.encode({"username": user['username'], "exp":datetime.datetime.utcnow() + datetime.timedelta(minutes=60)}, os.getenv('SECRET_KEY'))
         return jsonify({'message': 'Login success!',
-                        'token' : token.decode('UTF-8')})
+                        'token' : token.decode('UTF-8')}), 200
 
     return jsonify({'message': 'Could not verify!'})
 

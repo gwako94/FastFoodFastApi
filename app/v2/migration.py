@@ -59,3 +59,10 @@ class Database(object):
             self.conn.commit()
         print("All tables created successfully!")
         self.cur.close()
+
+    def drop_tables(self):
+        query = "DROP TABLE users, menu, orders;"
+        self.cur.execute(query)
+        self.conn.commit()
+        print("All tables dropped successfully!")
+        self.cur.close()

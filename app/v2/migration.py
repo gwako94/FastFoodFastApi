@@ -37,7 +37,7 @@ class Database(object):
                     menu_id SERIAL PRIMARY KEY,
                     item_name VARCHAR(50) NOT NULL,
                     image_url VARCHAR(270) NOT NULL,
-                    price numeric NOT NULL,
+                    price NUMERIC NOT NULL,
                     created_at TIMESTAMP
                     
         );'''
@@ -46,7 +46,7 @@ class Database(object):
                     order_id SERIAL PRIMARY KEY,
                     user_id INTEGER REFERENCES users(id),
                     cart VARCHAR(200) NOT NULL,
-                    total numeric NOT NULL,
+                    total NUMERIC NOT NULL,
                     status VARCHAR(20) NOT NULL,
                     created_at TIMESTAMP,
                     updated_at TIMESTAMP

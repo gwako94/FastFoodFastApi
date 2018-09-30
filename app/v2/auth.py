@@ -26,7 +26,6 @@ def token_required(f):
 
         try:
             data = jwt.decode(token, os.getenv('SECRET_KEY'))
-            print(data)
             query = "SELECT * from users WHERE username=%s;"
             cur.execute(query, (data['username'],))
             current_user = cur.fetchone()

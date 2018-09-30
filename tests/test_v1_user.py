@@ -8,10 +8,10 @@ currentdir = os.path.dirname(os.path.abspath(
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 
-from tests.test_v1_base import TestSetup
+from tests.test_v2_base import TestSetup
 
 class TestUser(TestSetup):
-
+    """User testcases"""
     def test_register_new_user(self):
         """ Test new user register """
 

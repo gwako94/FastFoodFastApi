@@ -1,5 +1,4 @@
-from flask import request, jsonify, Blueprint, make_response
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import request, jsonify, Blueprint
 import psycopg2
 import datetime
 

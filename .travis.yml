@@ -4,6 +4,12 @@ python:
 install:
   - pip install -r requirements.txt
   - pip install coveralls
+services:
+  - postgresql
+before_script:
+  - psql -c "CREATE ROLE galgallo with createdb login password '@andela'" postgres
+  - psql -c "CREATE DATABASE fast_food_fast owner galgalo" postgres
+  - python3 manage.py create_tables
 script: 
   - nosetests --with-coverage --cover-package=app tests/
   - coveralls

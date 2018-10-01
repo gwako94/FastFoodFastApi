@@ -24,9 +24,9 @@ def place_order(current_user):
    
     try:
         order_data.add_order()
-        return jsonify({'Message': 'Order successfully placed!'})
+        return jsonify({'message': 'Order successfully placed!'}), 201
     except psycopg2.ProgrammingError:
-        return jsonify({'message': 'Item not found!'})
+        return jsonify({'message': 'Item not found!'}), 400
 
 @v2_order.route('/users/orders', methods=['GET'])
 @token_required

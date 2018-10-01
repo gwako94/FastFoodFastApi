@@ -47,6 +47,11 @@ class TestSetup(unittest.TestCase):
 	        "image_url": "burger.jpg",
 	        "price": "300"
         }
+        self.menu2 = {
+            "item_name": "test_pizza",
+	        "image_url": "pizza.jpg",
+	        "price": "900"
+        }
         self.admin1 = {
             "username": "Admin2",
             "email": "admin2@example.com",
@@ -87,11 +92,26 @@ class TestSetup(unittest.TestCase):
         self.data = json.loads(self.login.data.decode("UTF-8"))
         self.token = self.data['token']
 
+        #post menu:
+        self.client.post(
+            'api/v2/menu',
+            data=json.dumps(self.menu2),
+            content_type='application/json',
+            headers=
+            {'access-token': self.admin_token})
+
+        #order
+        self.order = {
+            'cart': {'test_pizza': 4}
+        }
+
 
     def tearDown(self):
         user = "DELETE FROM users WHERE username='test1';"
         menu = "DELETE FROM menu WHERE item_name='test_burger';"
-        queries = [user, menu]
+        menu2 = "DELETE FROM menu WHERE item_name='test_pizza';"
+        order = "DELETE FROM orders;"
+        queries = [user, menu, menu2, order]
         for query in queries:
             cur.execute(query)
             db.conn.commit()

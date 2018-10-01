@@ -59,6 +59,15 @@ class Order(object):
             updated_order["updated_at"] = updated_at
             return updated_order
 
+    def edit_order(self, order_id, cart, total, updated_at):
+        """Method to edit order"""
+        edited_order = self.get_order_by_id(order_id)
+        if edited_order:
+            edited_order['cart'] = cart
+            edited_order['total'] = total
+            edited_order['updated_at'] = updated_at
+            return edited_order
+
     @staticmethod
     def total(cart):
         """Methods gets total cost of cart items"""

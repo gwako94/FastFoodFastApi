@@ -8,28 +8,10 @@ currentdir = os.path.dirname(os.path.abspath(
 parentdir = os.path.dirname(currentdir)
 sys.path.insert(0, parentdir)
 
-from app.app import create_app
-from app.v1.models.userModel import User
+from tests.test_base import TestSetup
 
 
-
-class TestUser(unittest.TestCase):
-
-    def setUp(self):
-        self.app = create_app("testing")
-        self.client = self.app.test_client()
-        self.users_inst = User()
-        self.new_user = {
-            "username": "test1",
-            "email": "test1@example.com",
-            "password": "test1pass"
-        }
-        self.new_user2 = {
-            "username": "test",
-            "email": "test@example.com",
-            "password": "testpass"
-        }
-
+class TestUser(TestSetup):
 
     def test_register_new_user(self):
         """ Test new user register """
@@ -118,8 +100,8 @@ class TestUser(unittest.TestCase):
         self.assertTrue(res.content_type == 'application/json')
         self.assertEqual(res.status_code, 200)
 
-    def tearDown(self):
-        self.users_inst.users.clear()
+  
+
         
 
 if __name__ == '__main__':

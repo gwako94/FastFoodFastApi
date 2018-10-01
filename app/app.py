@@ -20,7 +20,7 @@ def create_app(env_name):
   app.register_blueprint(v1_user, url_prefix="/auth")
   app.register_blueprint(v2_user, url_prefix="/v2/auth")
   app.register_blueprint(menu, url_prefix="/api/v2/menu")
-  app.register_blueprint(v2_order, url_prefix="/api/v2/orders")
+  app.register_blueprint(v2_order, url_prefix="/api/v2")
 
   @app.route('/', methods=['GET'])
   def index():

@@ -1,5 +1,10 @@
 import datetime
+import json
+
+
+#import local files
 from ..migration import Database
+from app.v2.models.menuModel import Menu
 
 now = datetime.datetime.now()
 db = Database()
@@ -12,8 +17,35 @@ class Order(object):
 
     # order constructor
 
-    def __init__(self, user_id=1, cart={"item": 0}, total=0, status="new"):
+    def __init__(self, user_id=0, cart={"item": 0}, total=0, status="new", created_at=now):
         self.user_id = user_id
         self.cart = cart
         self.total = total
         self.status = status
+        self.created_at = created_at
+
+    def add_order(self):
+        query = "INSERT INTO orders (user_id, cart, total, status, created_at) values (%s, %s, %s, %s, %s);"
+        cur.execute(
+            query,
+            (self.user_id,
+             json.dumps(
+                 self.cart),
+             self.total,
+             self.status,
+             self.created_at))
+        db.conn.commit()
+        return True
+
+    @staticmethod
+    def get_total(cart):
+        """Methods gets total cost of cart items"""
+        total = 0
+        for item, quantity in cart.items():
+            price = Menu.get_item_price(item)
+            try:
+                total += price['price'] * quantity
+                    
+            except TypeError:
+                return False
+        return total

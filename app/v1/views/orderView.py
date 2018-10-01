@@ -54,4 +54,18 @@ def update_order_status(current_user, order_id):
     new_status = data['status']
     updated_time = datetime.datetime.now()
     orders.update_order(order_id, new_status, updated_time)
+    return jsonify({'message': "Order status updated successfully"})
+
+@v1_order.route('edit/<order_id>', methods=['PUT'])
+@auth_token_required
+def edit_order(current_user, order_id):
+    data = request.get_json()
+
+    all_orders = orders.get_all_orders()
+    if not all_orders:
+        return jsonify({'message': 'Order not found!'}), 404
+    new_cart = data['cart']
+    total = orders.total(new_cart)
+    updated_time = datetime.datetime.now()
+    orders.edit_order(order_id, new_cart, total, updated_time)
     return jsonify({'message': "Order updated successfully"})

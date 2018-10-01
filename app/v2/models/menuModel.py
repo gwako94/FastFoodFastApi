@@ -18,8 +18,8 @@ class Menu(object):
     def check_if_menu_exists(self, item_name):
         query = "SELECT item_name from menu WHERE item_name=%s;"
         cur.execute(query, (item_name,))
-        the_user = cur.fetchone()
-        if the_user:
+        menu = cur.fetchone()
+        if menu:
             return True
 
 

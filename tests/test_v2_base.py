@@ -53,18 +53,25 @@ class TestSetup(unittest.TestCase):
             "password": "@admin2"
         }
         hashed_password = generate_password_hash('@admin2', method='sha256')
-        user_details = User(
+        admin_details = User(
             'Admin2',
             'admin2@example.com',
             hashed_password,
             True
         )
-        user_details.register_user()
+        admin_details.register_user()
         self.Nadmin = {
-            "username": "Nadmin",
-            "email": "Nadmin@example.com",
-            "password": "@Nadmin1"
+            "username": "user1",
+            "email": "user1@example.com",
+            "password": "@user1"
         }
+        hashed_password = generate_password_hash('@user1', method='sha256')
+        user_details = User(
+            'user1',
+            'user1@example.com',
+            hashed_password,
+        )
+        user_details.register_user()
         
         self.admin_login = self.client.post(
             '/v2/auth/login',

@@ -41,6 +41,16 @@ def fetch_order_history(current_user):
     except TypeError:
        return jsonify({'Orders': 'New here? Please Order!'}) 
     
+@v2_order.route('/orders', methods=['GET'])
+@token_required
+def fetch_all_orders(current_user):
+    orders = Order.get_all_orders()
+    if current_user['admin']:
+        if orders:
+            return jsonify({'Orders': orders}), 200
+        return jsonify({'message': 'No orders found!'}), 400
+    return jsonify({'message': 'You are not authorized to perform this function!'}), 400
+
 
 
 

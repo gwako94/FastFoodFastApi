@@ -49,9 +49,17 @@ def fetch_all_orders(current_user):
         if orders:
             return jsonify({'Orders': orders}), 200
         return jsonify({'message': 'No orders found!'}), 400
-    return jsonify({'message': 'You are not authorized to perform this function!'}), 400
+    return jsonify({'message': 'You are not authorized to perform this function!'}), 401
 
-
+@v2_order.route('/orders/<order_id>', methods=['GET'])
+@token_required
+def fetch_specific_order(current_user, order_id):
+    order = Order.get_order_by_id(order_id)
+    if current_user['admin']:
+        if order:
+            return jsonify({'Order': order}), 200
+        return jsonify({'message': 'Order not found!'}), 400
+    return jsonify({'message': 'You are not authorized to perform this function!'}), 401
 
 
 

@@ -37,7 +37,7 @@ class TestUser(TestSetup):
         msg = json.loads(res.data.decode("UTF-8"))
         self.assertIn('User already exists!', msg['message'])
         self.assertTrue(res.content_type == 'application/json')
-        self.assertEqual(res.status_code, 400)
+        self.assertEqual(res.status_code, 409)
 
     def test_register_with_invalid_username(self):
         """Test invalid username"""

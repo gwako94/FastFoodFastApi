@@ -1,6 +1,7 @@
 from flask import request, jsonify, Blueprint
 import psycopg2
 import datetime
+import json
 
 #import local files
 from app.v2.models.orderModel import Order
@@ -23,9 +24,25 @@ def place_order(current_user):
    
     try:
         order_data.add_order()
-        return jsonify({'Message': 'Order successfully placed!'})
+        return jsonify({'message': 'Order successfully placed!'}), 201
     except psycopg2.ProgrammingError:
-        return jsonify({'message': 'Item not found!'})
+        return jsonify({'message': 'Item not found!'}), 400
+
+@v2_order.route('/users/orders', methods=['GET'])
+@token_required
+def fetch_order_history(current_user):
+    orders = Order.get_all_orders()
+    user_orders = []
+    try:
+        for order in orders:
+            if order['user_id'] == current_user['id']:
+                user_orders.append(order)
+        return jsonify({'Orders': user_orders})
+    except TypeError:
+       return jsonify({'Orders': 'New here? Please Order!'}) 
     
+
+
+
 
 

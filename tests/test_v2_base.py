@@ -1,5 +1,6 @@
 import unittest
 import json
+from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import sys
 import inspect
@@ -10,6 +11,7 @@ sys.path.insert(0, parentdir)
 
 from app.app import create_app
 from app.v2.migration import Database
+from app.v2.models.userModel import User
 db = Database()
 cur = db.cur
 
@@ -45,19 +47,40 @@ class TestSetup(unittest.TestCase):
 	        "image_url": "burger.jpg",
 	        "price": "300"
         }
-        self.admin = {
-            "username": "Admin",
-            "email": "admin@example.com",
-            "password": "@admin1"
+        self.menu2 = {
+            "item_name": "test_pizza",
+	        "image_url": "pizza.jpg",
+	        "price": "900"
         }
+        self.admin1 = {
+            "username": "Admin2",
+            "email": "admin2@example.com",
+            "password": "@admin2"
+        }
+        hashed_password = generate_password_hash('@admin2', method='sha256')
+        admin_details = User(
+            'Admin2',
+            'admin2@example.com',
+            hashed_password,
+            True
+        )
+        admin_details.register_user()
         self.Nadmin = {
-            "username": "Nadmin",
-            "email": "Nadmin@example.com",
-            "password": "@Nadmin1"
+            "username": "user1",
+            "email": "user1@example.com",
+            "password": "@user1"
         }
+        hashed_password = generate_password_hash('@user1', method='sha256')
+        user_details = User(
+            'user1',
+            'user1@example.com',
+            hashed_password,
+        )
+        user_details.register_user()
+        
         self.admin_login = self.client.post(
             '/v2/auth/login',
-            data=json.dumps(self.admin),
+            data=json.dumps(self.admin1),
             content_type='application/json')
         self.data = json.loads(self.admin_login.data.decode("UTF-8"))
         self.admin_token = self.data['token']
@@ -69,11 +92,26 @@ class TestSetup(unittest.TestCase):
         self.data = json.loads(self.login.data.decode("UTF-8"))
         self.token = self.data['token']
 
+        #post menu:
+        self.client.post(
+            'api/v2/menu',
+            data=json.dumps(self.menu2),
+            content_type='application/json',
+            headers=
+            {'access-token': self.admin_token})
+
+        #order
+        self.order = {
+            'cart': {'test_pizza': 4}
+        }
+
 
     def tearDown(self):
         user = "DELETE FROM users WHERE username='test1';"
         menu = "DELETE FROM menu WHERE item_name='test_burger';"
-        queries = [user, menu]
+        menu2 = "DELETE FROM menu WHERE item_name='test_pizza';"
+        order = "DELETE FROM orders;"
+        queries = [user, menu, menu2, order]
         for query in queries:
             cur.execute(query)
             db.conn.commit()

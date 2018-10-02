@@ -38,6 +38,23 @@ class Order(object):
         return True
 
     @staticmethod
+    def get_all_orders():
+        query = "SELECT * from orders;"
+        cur.execute(query)
+        all_orders = cur.fetchall()
+        if all_orders:
+            orders = [{
+                "id": order["order_id"],
+                "user_id": order["user_id"],
+                "cart": json.loads(order["cart"]),
+                "total": str(order["total"]),
+                "status": order["status"],
+                "created_at": order["created_at"]
+            } for order in all_orders]
+            return orders
+        return False
+
+    @staticmethod
     def get_total(cart):
         """Methods gets total cost of cart items"""
         total = 0

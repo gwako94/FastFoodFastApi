@@ -61,16 +61,25 @@ class Order(object):
         cur.execute(query, (order_id, ))
         order = cur.fetchone()
         if order:
-            the_order = [{
+            the_order = {
                 "id": order["order_id"],
                 "user_id": order["user_id"],
                 "cart": json.loads(order["cart"]),
                 "total": str(order["total"]),
                 "status": order["status"],
                 "created_at": order["created_at"]
-            }]
+            }
             return the_order
         return False
+    @staticmethod
+    def update_order(order_id, status, updated_at):
+        """ Method to update status of an order"""
+        updated_order = Order.get_order_by_id(order_id)
+        if updated_order:
+            updated_order["status"] = status
+            updated_order["updated_at"] = updated_at
+            return updated_order
+
 
     @staticmethod
     def get_total(cart):

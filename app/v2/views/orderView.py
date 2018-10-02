@@ -7,6 +7,7 @@ import json
 from app.v2.models.orderModel import Order
 from app.v2.auth import token_required
 
+now = datetime.datetime.now()
 v2_order = Blueprint('v2_orders', __name__)
 
 
@@ -62,5 +63,19 @@ def fetch_specific_order(current_user, order_id):
     return jsonify({'message': 'You are not authorized to perform this function!'}), 403
 
 
+@v2_order.route('/orders/<order_id>', methods=['PUT'])
+@token_required
+def update_status(current_user, order_id): 
+    order = Order.get_order_by_id(order_id)
+    data = request.get_json()
+    if current_user['admin']:
+        if order:
+            status = data['status']
+            updated_at = now
+            order = Order.update_order(order_id, status, updated_at)
+            return jsonify({'message': 'Order updated successfully!', 
+                            'Order': order}), 200
+        return jsonify({'message': 'Order not found!'}), 404
+    return jsonify({'message': 'You are not authorized to perform this function!'}), 403
 
 

@@ -16,7 +16,7 @@ cur = db.cur
 v2_user = Blueprint('v2_users', __name__)
 
 
-@v2_user.route('/register', methods=['POST'])
+@v2_user.route('/auth/register', methods=['POST'])
 def register_user():
     data = request.get_json()
     if validate_register(data):
@@ -55,7 +55,7 @@ def promote_user(current_user, user_id):
     return jsonify({'message': 'You are not authorized to perform this function!'})
 
 
-@v2_user.route('/login', methods=['POST'])
+@v2_user.route('/auth/login', methods=['POST'])
 def login():
     auth = request.get_json()
 

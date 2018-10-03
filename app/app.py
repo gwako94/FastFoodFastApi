@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 
 from config import app_config
 
@@ -26,6 +26,8 @@ def create_app(env_name):
   def index():
     return '<h1 style="text-align:center; color:red;">Welcome to fast food fast api <h1>'
 
-    
-  
+  @app.errorhandler(KeyError)
+  def key_handler(KeyError):
+    return jsonify({'message': 'Please input {}'.format(KeyError)})
+
   return app

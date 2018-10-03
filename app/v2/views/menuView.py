@@ -2,11 +2,12 @@ from flask import request, jsonify, Blueprint
 import psycopg2
 import datetime
 
-#import local files
+# import local files
 from app.v2.models.menuModel import Menu
 from app.v2.auth import token_required
 
 menu = Blueprint('menu', __name__)
+
 
 @menu.route('', methods=['POST'])
 @token_required
@@ -24,6 +25,7 @@ def add_menu(current_user):
         return jsonify({'message': 'Menu already exists!'}), 409
 
     return jsonify({'message': 'Cannot perform this function!'}), 403
+
 
 @menu.route('', methods=['GET'])
 def get_all_menu():

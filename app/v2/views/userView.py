@@ -5,7 +5,7 @@ import datetime
 import jwt
 import os
 
-#import locals files
+# import locals files
 from app.v2.models.userModel import User
 from app.v2.utilities import validate_register
 from app.v2.migration import Database
@@ -13,6 +13,7 @@ db = Database()
 cur = db.cur
 
 v2_user = Blueprint('v2_users', __name__)
+
 
 @v2_user.route('/register', methods=['POST'])
 def register_user():
@@ -33,6 +34,7 @@ def register_user():
     except psycopg2.IntegrityError:
         return jsonify({'message': 'Email has been registered!'}), 409
 
+
 @v2_user.route('/login', methods=['POST'])
 def login():
     auth = request.get_json()
@@ -46,13 +48,13 @@ def login():
 
     if not user:
         return jsonify({'message': 'Could not verify'}), 401
-    
+
     if check_password_hash(user['password'], auth["password"]):
-        token = jwt.encode({"username": user['username'], "exp":datetime.datetime.utcnow() + datetime.timedelta(minutes=60)}, os.getenv('SECRET_KEY'))
+        token = jwt.encode(
+            {"username": user['username'],
+             "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=60)},
+            os.getenv('SECRET_KEY'))
         return jsonify({'message': 'Login success!',
-                        'token' : token.decode('UTF-8')}), 200
+                        'token': token.decode('UTF-8')}), 200
 
     return jsonify({'message': 'Could not verify!'})
-
-    
-

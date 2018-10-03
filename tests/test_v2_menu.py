@@ -24,7 +24,7 @@ class TestMenu(TestSetup):
             headers={'access-token': self.admin_token})
         self.assertEqual(res.status_code, 201)
         msg = json.loads(res.data.decode("UTF-8"))
-        self.assertIn("Menu created!", msg["message"])
+        self.assertIn("Menu item created!", msg["message"])
 
     def test_non_admin_cannot_post_menu(self):
         """ Test non admin cannot post menu"""
@@ -35,7 +35,7 @@ class TestMenu(TestSetup):
             headers={'access-token': self.token})
         self.assertEqual(res.status_code, 403)
         msg = json.loads(res.data.decode("UTF-8"))
-        self.assertIn("Cannot perform this function!", msg["message"])
+        self.assertIn("You are not authorized", msg["message"])
 
     def test_existing_menu(self):
         """Test existing menu"""
@@ -52,4 +52,4 @@ class TestMenu(TestSetup):
             headers={'access-token': self.admin_token})
         self.assertEqual(res.status_code, 409)
         msg = json.loads(res.data.decode("UTF-8"))
-        self.assertIn("Menu already exists!", msg["message"])
+        self.assertIn("Menu item already exists!", msg["message"])

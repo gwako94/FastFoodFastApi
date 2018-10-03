@@ -30,7 +30,7 @@ class Database(object):
         users = '''CREATE TABLE IF NOT EXISTS users(
                     id SERIAL PRIMARY KEY,
                     username VARCHAR(50) NOT NULL,
-                    email VARCHAR(70) UNIQUE NOT NULL,
+                    email VARCHAR(70) NOT NULL,
                     password VARCHAR(250) NOT NULL,
                     admin bool,
                     created_at TIMESTAMP

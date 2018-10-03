@@ -33,7 +33,7 @@ class TestMenu(TestSetup):
             content_type='application/json',
             headers=
             {'access-token': self.token})
-        self.assertEqual(res.status_code, 401)
+        self.assertEqual(res.status_code, 403)
         msg = json.loads(res.data.decode("UTF-8"))
         self.assertIn("Cannot perform this function!", msg["message"])
 
@@ -52,6 +52,6 @@ class TestMenu(TestSetup):
             content_type='application/json',
             headers=
             {'access-token': self.admin_token})
-        self.assertEqual(res.status_code, 400)
+        self.assertEqual(res.status_code, 409)
         msg = json.loads(res.data.decode("UTF-8"))
         self.assertIn("Menu already exists!", msg["message"])

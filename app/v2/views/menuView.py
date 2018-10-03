@@ -21,9 +21,9 @@ def add_menu(current_user):
     if current_user['admin']:
         if menu_details.add_menu():
             return jsonify({'message': 'Menu created!'}), 201
-        return jsonify({'message': 'Menu already exists!'}), 400
+        return jsonify({'message': 'Menu already exists!'}), 409
 
-    return jsonify({'message': 'Cannot perform this function!'}), 401
+    return jsonify({'message': 'Cannot perform this function!'}), 403
 
 @menu.route('', methods=['GET'])
 def get_all_menu():
@@ -37,4 +37,4 @@ def get_all_menu():
             "created_at": menu["created_at"]
         } for menu in all_menu]
         return jsonify({'Menu': menu}), 200
-    return jsonify({'message': 'No menu available!'})
+    return jsonify({'message': 'No menu available!'}), 404

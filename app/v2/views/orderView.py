@@ -26,7 +26,7 @@ def place_order(current_user):
         order_data.add_order()
         return jsonify({'message': 'Order successfully placed!'}), 201
     except psycopg2.ProgrammingError:
-        return jsonify({'message': 'Item not found!'}), 400
+        return jsonify({'message': 'food item not found!'}), 404
 
 @v2_order.route('/users/orders', methods=['GET'])
 @token_required
@@ -39,7 +39,7 @@ def fetch_order_history(current_user):
                 user_orders.append(order)
         return jsonify({'Orders': user_orders})
     except TypeError:
-       return jsonify({'Orders': 'New here? Please Order!'}) 
+       return jsonify({'Orders': 'New here? Please Order!'}), 404
     
 @v2_order.route('/orders', methods=['GET'])
 @token_required
@@ -48,10 +48,18 @@ def fetch_all_orders(current_user):
     if current_user['admin']:
         if orders:
             return jsonify({'Orders': orders}), 200
-        return jsonify({'message': 'No orders found!'}), 400
-    return jsonify({'message': 'You are not authorized to perform this function!'}), 400
+        return jsonify({'message': 'No orders found!'}), 404
+    return jsonify({'message': 'You are not authorized to perform this function!'}), 403
 
-
+@v2_order.route('/orders/<order_id>', methods=['GET'])
+@token_required
+def fetch_specific_order(current_user, order_id):
+    order = Order.get_order_by_id(order_id)
+    if current_user['admin']:
+        if order:
+            return jsonify({'Order': order}), 200
+        return jsonify({'message': 'Order not found!'}), 404
+    return jsonify({'message': 'You are not authorized to perform this function!'}), 403
 
 
 

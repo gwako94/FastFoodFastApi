@@ -43,3 +43,27 @@ class TestOrder(TestSetup):
                 headers=
                 {'access-token': self.token})
         self.assertEqual(res.status_code, 200)
+
+    def test_admin_can_get_all_orders(self):
+        """Test admin can fetch all orders"""
+        #post an order
+        self.client.post(
+            'api/v2/users/orders',
+            data=json.dumps(self.order),
+            content_type='application/json',
+            headers=
+            {'access-token': self.token})
+        res = self.client.get(
+                'api/v2/orders',
+                content_type='application/json',
+                headers=
+                {'access-token': self.admin_token})
+        self.assertEqual(res.status_code, 200)
+
+    def test_order_not_found(self):
+        res = self.client.get(
+                'api/v2/orders/1000',
+                content_type='application/json',
+                headers=
+                {'access-token': self.admin_token})
+        self.assertEqual(res.status_code, 404)

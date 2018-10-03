@@ -29,9 +29,9 @@ def register_user():
     try:
         if user_details.register_user():
             return jsonify({'message': 'User Registered successfully!'}), 201
-        return jsonify({'message': 'User already exists!'}), 400
+        return jsonify({'message': 'User already exists!'}), 409
     except psycopg2.IntegrityError:
-        return jsonify({'message': 'Email has been registered!'}), 400
+        return jsonify({'message': 'Email has been registered!'}), 409
 
 @v2_user.route('/login', methods=['POST'])
 def login():

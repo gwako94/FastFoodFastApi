@@ -28,6 +28,10 @@ def create_app(env_name):
 
   @app.errorhandler(KeyError)
   def key_handler(KeyError):
-    return jsonify({'message': 'Please input {}'.format(KeyError)})
+    return jsonify({'message': '{} is missing! Please input.'.format(KeyError)})
+
+  @app.errorhandler(400)
+  def bad_request(error):
+    return jsonify({'message': 'Please input required fields!'})
 
   return app

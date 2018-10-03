@@ -25,12 +25,15 @@ def place_order(current_user):
         cart,
         total
     )
-
-    try:
-        order_data.add_order()
-        return jsonify({'message': 'Order successfully placed!'}), 201
-    except psycopg2.ProgrammingError:
-        return jsonify({'message': 'Food item not avilable in the menu!'}), 404
+    query = "SELECT item_name from menu;"
+    cur.execute(query)
+    items = cur.fetchall()
+    for item in items:
+        for food in data['cart'].keys():
+            if item['item_name'] == food:
+                order_data.add_order()
+                return jsonify({'message': 'Order successfully placed!'}), 201
+            return jsonify({'message': 'Food item not avilable in the menu!'}), 404
 
 
 @v2_order.route('/users/orders', methods=['GET'])

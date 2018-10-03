@@ -15,7 +15,7 @@ def validate_register(data):
     # validate password
     if validate_password(data):
         return validate_password(data)
-        
+
 
 def validate_username(data):
     """Validate username"""
@@ -23,14 +23,14 @@ def validate_username(data):
         msg = "Username should have letters or numbers or a combination of both and should be 5 or more characters long"
         return jsonify({'message': msg}), 400
 
+
 def validate_email(data):
     if not re.match(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', data['email']):
         msg = "Please input a valid email!"
         return jsonify({'message': msg}), 400
 
+
 def validate_password(data):
     if not re.match(r'^[\w\W]{6,}$', data['password']):
         msg = "Password must be atlist 6 characters long"
         return jsonify({'message': msg}), 400
-    
-

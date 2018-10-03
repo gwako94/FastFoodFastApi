@@ -13,6 +13,7 @@ from app.v2.migration import Database
 db = Database()
 cur = db.cur
 
+
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):

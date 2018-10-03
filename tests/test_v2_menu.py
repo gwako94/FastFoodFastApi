@@ -10,7 +10,9 @@ sys.path.insert(0, parentdir)
 
 from tests.test_v2_base import TestSetup
 
+
 class TestMenu(TestSetup):
+
     """Menu testcases"""
 
     def test_admin_can_post_menu(self):
@@ -19,8 +21,7 @@ class TestMenu(TestSetup):
             'api/v2/menu',
             data=json.dumps(self.new_menu),
             content_type='application/json',
-            headers=
-            {'access-token': self.admin_token})
+            headers={'access-token': self.admin_token})
         self.assertEqual(res.status_code, 201)
         msg = json.loads(res.data.decode("UTF-8"))
         self.assertIn("Menu created!", msg["message"])
@@ -31,8 +32,7 @@ class TestMenu(TestSetup):
             'api/v2/menu',
             data=json.dumps(self.new_menu),
             content_type='application/json',
-            headers=
-            {'access-token': self.token})
+            headers={'access-token': self.token})
         self.assertEqual(res.status_code, 403)
         msg = json.loads(res.data.decode("UTF-8"))
         self.assertIn("Cannot perform this function!", msg["message"])
@@ -44,14 +44,12 @@ class TestMenu(TestSetup):
             'api/v2/menu',
             data=json.dumps(self.new_menu),
             content_type='application/json',
-            headers=
-            {'access-token': self.admin_token})
+            headers={'access-token': self.admin_token})
         res = self.client.post(
             'api/v2/menu',
             data=json.dumps(self.new_menu),
             content_type='application/json',
-            headers=
-            {'access-token': self.admin_token})
+            headers={'access-token': self.admin_token})
         self.assertEqual(res.status_code, 409)
         msg = json.loads(res.data.decode("UTF-8"))
         self.assertIn("Menu already exists!", msg["message"])

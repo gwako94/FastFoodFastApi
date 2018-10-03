@@ -6,7 +6,8 @@ import os
 
 class Database(object):
 
-    #constructor initialize environment
+    # constructor initialize environment
+
     def __init__(self):
         self.host = os.getenv('HOST')
         self.name = os.getenv('DEV_DB')
@@ -14,13 +15,15 @@ class Database(object):
         self.password = os.getenv('PASSWORD')
 
         try:
-            self.conn = psycopg2.connect(host=self.host, dbname=self.name, user=self.user, password=self.password)
+            self.conn = psycopg2.connect(
+                host=self.host,
+                dbname=self.name,
+                user=self.user,
+                password=self.password)
             self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
         except:
             print("Unable to connect to the database")
 
-
-    
     def create_tables(self):
         """ Method to create tables """
 
@@ -39,7 +42,7 @@ class Database(object):
                     image_url VARCHAR(270) NOT NULL,
                     price NUMERIC NOT NULL,
                     created_at TIMESTAMP
-                    
+
         );'''
 
         orders = '''CREATE TABLE IF NOT EXISTS orders(
@@ -50,7 +53,7 @@ class Database(object):
                     status VARCHAR(20) NOT NULL,
                     created_at TIMESTAMP,
                     updated_at TIMESTAMP
-                    
+
         );'''
         queries = [users, menu, orders]
 

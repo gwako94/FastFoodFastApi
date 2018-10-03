@@ -38,7 +38,6 @@ class Menu(object):
         db.conn.commit()
         return True
 
-
     @staticmethod
     def get_all_menu():
         query = "SELECT * from menu;"
@@ -46,14 +45,9 @@ class Menu(object):
         menu = cur.fetchall()
         return menu
 
-
     @staticmethod
     def get_item_price(item_name):
-        query = "SELECT price from menu where item_name=%s;" 
+        query = "SELECT price from menu where item_name=%s;"
         cur.execute(query, (item_name,))
         price = cur.fetchone()
         return price
-        
-
-
-

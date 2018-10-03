@@ -1,11 +1,12 @@
 import unittest
 import json
 
-#import local files
+# import local files
 from tests.test_v2_base import TestSetup
 
+
 class TestUser(TestSetup):
-    
+
     def test_register_new_user(self):
         """ Test new user register """
 
@@ -28,8 +29,8 @@ class TestUser(TestSetup):
             '/v2/auth/register',
             data=json.dumps(self.new_user),
             content_type='application/json')
-            
-        #try registering the user again
+
+        # try registering the user again
         res = self.client.post(
             '/v2/auth/register',
             data=json.dumps(self.new_user),
@@ -50,7 +51,7 @@ class TestUser(TestSetup):
         self.assertIn('letters or numbers', msg['message'])
         self.assertTrue(res.content_type == 'application/json')
         self.assertEqual(res.status_code, 400)
-        
+
     def test_register_with_invalid_email(self):
         """Test invalid email"""
         res = self.client.post(
@@ -73,7 +74,7 @@ class TestUser(TestSetup):
         self.assertIn('must be atlist 6 characters', msg['message'])
         self.assertTrue(res.content_type == 'application/json')
         self.assertEqual(res.status_code, 400)
-    
+
     def test_registered_user_login(self):
         self.client.post(
             '/v2/auth/register',

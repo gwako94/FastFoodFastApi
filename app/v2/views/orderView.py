@@ -3,11 +3,14 @@ import psycopg2
 import datetime
 import json
 
-#import local files
+# import local files
 from app.v2.models.orderModel import Order
+from app.v2.migration import Database
 from app.v2.auth import token_required
 
 now = datetime.datetime.now()
+db = Database()
+cur = db.cur
 v2_order = Blueprint('v2_orders', __name__)
 
 
@@ -22,12 +25,13 @@ def place_order(current_user):
         cart,
         total
     )
-   
+
     try:
         order_data.add_order()
         return jsonify({'message': 'Order successfully placed!'}), 201
     except psycopg2.ProgrammingError:
         return jsonify({'message': 'food item not found!'}), 404
+
 
 @v2_order.route('/users/orders', methods=['GET'])
 @token_required
@@ -40,8 +44,9 @@ def fetch_order_history(current_user):
                 user_orders.append(order)
         return jsonify({'Orders': user_orders})
     except TypeError:
-       return jsonify({'Orders': 'New here? Please Order!'}), 404
-    
+        return jsonify({'Orders': 'New here? Please Order!'}), 404
+
+
 @v2_order.route('/orders', methods=['GET'])
 @token_required
 def fetch_all_orders(current_user):
@@ -51,6 +56,7 @@ def fetch_all_orders(current_user):
             return jsonify({'Orders': orders}), 200
         return jsonify({'message': 'No orders found!'}), 404
     return jsonify({'message': 'You are not authorized to perform this function!'}), 403
+
 
 @v2_order.route('/orders/<order_id>', methods=['GET'])
 @token_required
@@ -65,7 +71,7 @@ def fetch_specific_order(current_user, order_id):
 
 @v2_order.route('/orders/<order_id>', methods=['PUT'])
 @token_required
-def update_status(current_user, order_id): 
+def update_status(current_user, order_id):
     order = Order.get_order_by_id(order_id)
     data = request.get_json()
     if current_user['admin']:
@@ -73,9 +79,14 @@ def update_status(current_user, order_id):
             status = data['status']
             updated_at = now
             order = Order.update_order(order_id, status, updated_at)
-            return jsonify({'message': 'Order updated successfully!', 
+            query = "UPDATE orders set status=%s, updated_at=%s WHERE order_id=%s;"
+            cur.execute(
+                query,
+                (order["status"],
+                 order["updated_at"],
+                    order_id))
+            db.conn.commit()
+            return jsonify({'message': 'Order updated successfully!',
                             'Order': order}), 200
         return jsonify({'message': 'Order not found!'}), 404
     return jsonify({'message': 'You are not authorized to perform this function!'}), 403
-
-

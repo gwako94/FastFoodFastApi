@@ -2,7 +2,7 @@ import datetime
 import json
 
 
-#import local files
+# import local files
 from ..migration import Database
 from app.v2.models.menuModel import Menu
 
@@ -17,7 +17,13 @@ class Order(object):
 
     # order constructor
 
-    def __init__(self, user_id=0, cart={"item": 0}, total=0, status="new", created_at=now):
+    def __init__(
+        self,
+        user_id=0,
+     cart={"item": 0},
+     total=0,
+     status="new",
+     created_at=now):
         self.user_id = user_id
         self.cart = cart
         self.total = total
@@ -54,7 +60,6 @@ class Order(object):
             return orders
         return False
 
-        
     @staticmethod
     def get_order_by_id(order_id):
         query = "SELECT * FROM orders WHERE order_id=%s;"
@@ -71,6 +76,7 @@ class Order(object):
             }
             return the_order
         return False
+
     @staticmethod
     def update_order(order_id, status, updated_at):
         """ Method to update status of an order"""
@@ -80,7 +86,6 @@ class Order(object):
             updated_order["updated_at"] = updated_at
             return updated_order
 
-
     @staticmethod
     def get_total(cart):
         """Methods gets total cost of cart items"""
@@ -89,7 +94,7 @@ class Order(object):
             price = Menu.get_item_price(item)
             try:
                 total += price['price'] * quantity
-                    
+
             except TypeError:
                 return False
         return total

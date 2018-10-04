@@ -16,6 +16,7 @@ def create_tables():
 @manager.command
 def drop_tables():
     db.drop_tables()
+
     
     
 if __name__ == '__main__':

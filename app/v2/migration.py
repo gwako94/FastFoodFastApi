@@ -3,7 +3,6 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 import os
 
-
 class Database(object):
 
     # constructor initialize environment
@@ -69,3 +68,5 @@ class Database(object):
         self.conn.commit()
         print("All tables dropped successfully!")
         self.cur.close()
+
+

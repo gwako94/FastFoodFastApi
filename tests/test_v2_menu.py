@@ -18,7 +18,7 @@ class TestMenu(TestSetup):
     def test_admin_can_post_menu(self):
         """Test admin can post menu"""
         res = self.client.post(
-            'api/v2/menu',
+            '/api/v2/menu',
             data=json.dumps(self.new_menu),
             content_type='application/json',
             headers={'access-token': self.admin_token})
@@ -29,7 +29,7 @@ class TestMenu(TestSetup):
     def test_non_admin_cannot_post_menu(self):
         """ Test non admin cannot post menu"""
         res = self.client.post(
-            'api/v2/menu',
+            '/api/v2/menu',
             data=json.dumps(self.new_menu),
             content_type='application/json',
             headers={'access-token': self.token})
@@ -41,15 +41,15 @@ class TestMenu(TestSetup):
         """Test existing menu"""
         # post a menu
         self.client.post(
-            'api/v2/menu',
+            '/api/v2/menu',
             data=json.dumps(self.new_menu),
             content_type='application/json',
             headers={'access-token': self.admin_token})
         res = self.client.post(
-            'api/v2/menu',
+            '/api/v2/menu',
             data=json.dumps(self.new_menu),
             content_type='application/json',
             headers={'access-token': self.admin_token})
         self.assertEqual(res.status_code, 409)
         msg = json.loads(res.data.decode("UTF-8"))
-        self.assertIn("Menu item already exists!", msg["message"])
+        self.assertIn("item already exists!", msg["message"])

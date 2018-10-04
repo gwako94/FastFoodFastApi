@@ -18,7 +18,7 @@ class TestOrder(TestSetup):
 
         # place an order
         res = self.client.post(
-            'api/v2/users/orders',
+            '/api/v2/users/orders',
             data=json.dumps(self.order),
             content_type='application/json',
             headers={'access-token': self.token})
@@ -30,14 +30,14 @@ class TestOrder(TestSetup):
         """Test user can fetch order history"""
         # post an order
         self.client.post(
-            'api/v2/users/orders',
+            '/api/v2/users/orders',
             data=json.dumps(self.order),
             content_type='application/json',
             headers={'access-token': self.token})
 
         # fetch order history
         res = self.client.get(
-            'api/v2/users/orders',
+            '/api/v2/users/orders',
                 content_type='application/json',
                 headers={'access-token': self.token})
         self.assertEqual(res.status_code, 200)
@@ -46,19 +46,19 @@ class TestOrder(TestSetup):
         """Test admin can fetch all orders"""
         # post an order
         self.client.post(
-            'api/v2/users/orders',
+            '/api/v2/users/orders',
             data=json.dumps(self.order),
             content_type='application/json',
             headers={'access-token': self.token})
         res = self.client.get(
-            'api/v2/orders',
+            '/api/v2/orders',
                 content_type='application/json',
                 headers={'access-token': self.admin_token})
         self.assertEqual(res.status_code, 200)
 
     def test_order_not_found(self):
         res = self.client.get(
-            'api/v2/orders/1000',
+            '/api/v2/orders/1000',
                 content_type='application/json',
                 headers={'access-token': self.admin_token})
         self.assertEqual(res.status_code, 404)

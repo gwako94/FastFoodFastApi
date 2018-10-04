@@ -12,7 +12,7 @@ class TestUser(TestSetup):
 
         # register a user
         res = self.client.post(
-            '/v2/auth/register',
+            '/api/v2/auth/register',
             data=json.dumps(self.new_user),
             content_type='application/json')
 
@@ -26,13 +26,13 @@ class TestUser(TestSetup):
 
         # register a user
         self.client.post(
-            '/v2/auth/register',
+            '/api/v2/auth/register',
             data=json.dumps(self.new_user),
             content_type='application/json')
 
         # try registering the user again
         res = self.client.post(
-            '/v2/auth/register',
+            '/api/v2/auth/register',
             data=json.dumps(self.new_user),
             content_type='application/json')
         msg = json.loads(res.data.decode("UTF-8"))
@@ -43,7 +43,7 @@ class TestUser(TestSetup):
     def test_register_with_invalid_username(self):
         """Test invalid username"""
         res = self.client.post(
-            '/v2/auth/register',
+            '/api/v2/auth/register',
             data=json.dumps(self.new_user2),
             content_type='application/json')
 
@@ -55,7 +55,7 @@ class TestUser(TestSetup):
     def test_register_with_invalid_email(self):
         """Test invalid email"""
         res = self.client.post(
-            '/v2/auth/register',
+            '/api/v2/auth/register',
             data=json.dumps(self.new_user3),
             content_type='application/json')
 
@@ -66,7 +66,7 @@ class TestUser(TestSetup):
 
     def test_register_with_invalid_password(self):
         res = self.client.post(
-            '/v2/auth/register',
+            '/api/v2/auth/register',
             data=json.dumps(self.new_user4),
             content_type='application/json')
 
@@ -77,12 +77,12 @@ class TestUser(TestSetup):
 
     def test_registered_user_login(self):
         self.client.post(
-            '/v2/auth/register',
+            '/api/v2/auth/register',
             data=json.dumps(self.new_user),
             content_type='application/json')
 
         res = self.client.post(
-            '/v2/auth/login',
+            '/api/v2/auth/login',
             data=json.dumps(self.new_user),
             content_type='application/json')
         msg = json.loads(res.data.decode('UTF-8'))

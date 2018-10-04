@@ -1,0 +1,262 @@
+FORMAT: 1A
+HOST: https://herokufastfoodapi.herokuapp.com/api/v2
+
+# Fast Food Fast V2
+An API that powers fast food application
+
+## Authentication
+This API uses Basic Authentication for its authentication.
+
+The parameters that are needed to be sent for this type of authentication are as follows:
++ `username`
++ `password`
+
+# Auth Register [/auth/register]
+
+## Register User [POST]
+Endpoint to register user!
+
++ Request (application/json)
+    + Attributes (Register UserRequest)
+
+    + Body
+
+            {
+                "username": "gwako1",
+                "email": "galgallo2@gmail.com",
+                "password": "@gwako1"
+            }
+
+
++ Response 201 
+
+
+
+
+# Auth Login [/auth/login]
+
+## User Login [POST]
+Logins in a normal user
+
++ Request (application/json)
+    + Attributes (User LoginRequest)
+
+    + Body
+
+            {
+                "username": "Admin2",
+                "password": "@admin2"
+            }
+
+
++ Response 200 
+
+
+
+
+# User 1 [/user/1]
+
+## Admin user promote other users [PUT]
+Route to admin to promote a user
+
++ Request 
+    + Headers
+
+            access-token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IkFkbWluMiIsImV4cCI6MTUzODY3OTk0NH0.IIlpPRn2iR279zxOw2M2ZzEjwQQ1AKcPI3In4CfeFNA
+
+
+
+
++ Response 200 
+
+
+
+
+# Menu [/menu]
+
+## Post a menu [POST]
+Route to post a menu
+
+Admin only!
+
++ Request (application/json)
+    + Headers
+
+            access-token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IkFkbWluMiIsImV4cCI6MTUzODY3OTk0NH0.IIlpPRn2iR279zxOw2M2ZzEjwQQ1AKcPI3In4CfeFNA
+
+    + Attributes (Post a menuRequest)
+
+    + Body
+
+            {
+                "item_name": "fries",
+                "image_url": "fries.jpg",
+                "price": 100
+            }
+
+
++ Response 201 
+
+
+
+## Get available menus [GET]
+Route to get all availabale menus
+
++ Response 200 
+
+
+
+
+# Users Orders [/users/orders]
+
+## Post orders user [POST]
+Rooute for users to post order
+
++ Request (application/json)
+    + Headers
+
+            access-token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IkFkbWluMiIsImV4cCI6MTUzODY3OTk0NH0.IIlpPRn2iR279zxOw2M2ZzEjwQQ1AKcPI3In4CfeFNA
+
+    + Attributes (Post orders userRequest)
+
+    + Body
+
+            {
+                "cart": {
+                    "burger": 3,
+                    "fries": 2
+                }
+            }
+
+
++ Response 201 
+
+
+
+
+## Fetch order history [GET]
+Route for users to fetch order history
+
++ Request 
+    + Headers
+
+            access-token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IkFkbWluMiIsImV4cCI6MTUzODY3OTk0NH0.IIlpPRn2iR279zxOw2M2ZzEjwQQ1AKcPI3In4CfeFNA
+
+
+
+
++ Response 200 
+
+
+# Orders [/orders]
+## Admin get all orders [GET]
+
++ Request 
+    + Headers
+
+            access-token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IkFkbWluMiIsImV4cCI6MTUzODY3OTk0NH0.IIlpPRn2iR279zxOw2M2ZzEjwQQ1AKcPI3In4CfeFNA
+
+
+
+
++ Response 200 
+
+
+
+
+
+# Orders 1 [/orders/1]
+
+## Admin get a single order [GET]
+Route for admin to get a single order
+
++ Request 
+    + Headers
+
+            access-token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IkFkbWluMiIsImV4cCI6MTUzODY3OTk0NH0.IIlpPRn2iR279zxOw2M2ZzEjwQQ1AKcPI3In4CfeFNA
+
+
+
+
++ Response 200 
+
+
+
+## Admin can update order status [PUT]
+Route for admin to update order status
+
++ Request (application/json)
+    + Headers
+
+            access-token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IkFkbWluMiIsImV4cCI6MTUzODY3OTk0NH0.IIlpPRn2iR279zxOw2M2ZzEjwQQ1AKcPI3In4CfeFNA
+
+    + Attributes (Admin can update order statusRequest)
+
+    + Body
+
+            {
+                "status": "accepted"
+            }
+
+
++ Response 200 
+
+
+
+
+# Data Structures
+
+## Register UserRequest (object)
+
+
+### Properties
++ `username`: `gwako1` (string, required) 
++ `email`: `galgallo2@gmail.com` (string, required) 
++ `password`: `@gwako1` (string, required) 
+
+
+## Admin LoginRequest (object)
+
+
+### Properties
++ `username`: `superuser` (string, required) 
++ `password`: `#fastfood` (string, required) 
+
+
+## User LoginRequest (object)
+
+
+### Properties
++ `username`: `Admin2` (string, required) 
++ `password`: `@admin2` (string, required) 
+
+
+## Post a menuRequest (object)
+
+
+### Properties
++ `item_name`: `fries` (string, required) 
++ `image_url`: `fries.jpg` (string, required) 
++ `price`: `100` (number, required) 
+
+
+## Post orders userRequest (object)
+
+
+### Properties
++ `cart` (Cart, required) 
+
+
+## Cart (object)
+
+
+### Properties
++ `burger`: `3` (number, required) 
++ `fries`: `2` (number, required) 
+
+
+## Admin can update order statusRequest (object)
+
+
+### Properties
++ `status`: `accepted` (string, required)

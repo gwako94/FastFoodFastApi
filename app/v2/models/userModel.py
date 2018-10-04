@@ -16,7 +16,7 @@ class User(object):
         self.password = password
         self.admin = admin
         self.created_at = now
-
+        
     def check_if_user_exists(self, username):
         query = "SELECT username from users WHERE username=%s;"
         cur.execute(query, (username,))

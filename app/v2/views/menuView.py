@@ -22,7 +22,7 @@ def add_menu(current_user):
     if current_user['admin']:
         if menu_details.add_menu():
             return jsonify({'message': 'Menu item created!'}), 201
-        return jsonify({'message': 'Menu item already exists!'}), 409
+        return jsonify({'message': '{} already exists!'.format(data['item_name'])}), 409
 
     return jsonify({'message': 'You are not authorized to perform this function!'}), 403
 

@@ -79,14 +79,14 @@ class TestSetup(unittest.TestCase):
         user_details.register_user()
         
         self.admin_login = self.client.post(
-            '/v2/auth/login',
+            '/api/v2/auth/login',
             data=json.dumps(self.admin1),
             content_type='application/json')
         self.data = json.loads(self.admin_login.data.decode("UTF-8"))
         self.admin_token = self.data['token']
         
         self.login = self.client.post(
-            '/v2/auth/login',
+            '/api/v2/auth/login',
             data=json.dumps(self.Nadmin),
             content_type='application/json')
         self.data = json.loads(self.login.data.decode("UTF-8"))

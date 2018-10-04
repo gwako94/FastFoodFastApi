@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+import os
 
 from config import app_config
 
@@ -18,9 +19,10 @@ def create_app(env_name):
   app.config.from_object(app_config[env_name])
   app.register_blueprint(v1_order, url_prefix='/api/v1/orders')
   app.register_blueprint(v1_user, url_prefix="/auth")
-  app.register_blueprint(v2_user, url_prefix="/v2/auth")
+  app.register_blueprint(v2_user, url_prefix="/api/v2")
   app.register_blueprint(menu, url_prefix="/api/v2/menu")
   app.register_blueprint(v2_order, url_prefix="/api/v2")
+  
 
   @app.route('/', methods=['GET'])
   def index():
@@ -28,6 +30,18 @@ def create_app(env_name):
 
   @app.errorhandler(KeyError)
   def key_handler(KeyError):
-    return jsonify({'message': 'Please input {}'.format(KeyError)})
+    return jsonify({'message': '{} is missing! Please input.'.format(KeyError)})
+
+  @app.errorhandler(400)
+  def bad_request(error):
+    return jsonify({'message': 'Please input required fields!'}), 400
+  
+  @app.errorhandler(404)
+  def not_found(error):
+    return jsonify({'message': 'The requested URL was not found'}), 404
+
+  @app.errorhandler(405)
+  def not_allowed(error):
+    return jsonify({'message': 'Method not allowed!'}), 405
 
   return app

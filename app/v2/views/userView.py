@@ -16,7 +16,7 @@ cur = db.cur
 v2_user = Blueprint('v2_users', __name__)
 
 
-@v2_user.route('/register', methods=['POST'])
+@v2_user.route('/auth/register', methods=['POST'])
 def register_user():
     data = request.get_json()
     if validate_register(data):
@@ -41,33 +41,33 @@ def register_user():
     return jsonify({'message': 'User already exists!'}), 409
 
 
-@v2_user.route('/user/<user_id>', methods=['PUT'])
+@v2_user.route('/users/<user_id>', methods=['PUT'])
 @token_required
 def promote_user(current_user, user_id):
     user = User.get_user_by_id(user_id)
-    if current_user['admin']:
+    if current_user['username'] == 'superUser':
         if user:
             query = "UPDATE users SET admin='true' WHERE id=%s"
             cur.execute(query, (user_id, ))
             db.conn.commit()
-            return jsonify({'message': 'User promoted to an admin'})
-        return jsonify({'message': 'User not found!'})
-    return jsonify({'message': 'You are not authorized to perform this function!'})
+            return jsonify({'message': 'User promoted to an admin'}), 200
+        return jsonify({'message': 'User not found!'}), 404
+    return jsonify({'message': 'You are not authorized to perform this function!'}), 401
 
 
-@v2_user.route('/login', methods=['POST'])
+@v2_user.route('/auth/login', methods=['POST'])
 def login():
     auth = request.get_json()
 
     if not auth or not auth["username"] or not auth["password"]:
-        return jsonify({'message': 'Could not verify'}), 401
+        return jsonify({'message': 'Username and password required!'}), 400
 
     query = "SELECT username, password from users WHERE username=%s;"
     cur.execute(query, (auth['username'],))
     user = cur.fetchone()
 
     if not user:
-        return jsonify({'message': 'Could not verify'}), 401
+        return jsonify({'message': 'Incorrect username'}), 401
 
     if check_password_hash(user['password'], auth["password"]):
         token = jwt.encode(
@@ -77,4 +77,4 @@ def login():
         return jsonify({'message': 'Login success!',
                         'token': token.decode('UTF-8')}), 200
 
-    return jsonify({'message': 'Could not verify!'})
+    return jsonify({'message': 'Incorrect password'}), 401

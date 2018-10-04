@@ -34,6 +34,14 @@ def create_app(env_name):
 
   @app.errorhandler(400)
   def bad_request(error):
-    return jsonify({'message': 'Please input required fields!'})
+    return jsonify({'message': 'Please input required fields!'}), 400
+  
+  @app.errorhandler(404)
+  def not_found():
+    return jsonify({'message': 'The requested URL was not found'})
+
+  @app.errorhandler(405)
+  def not_allowed():
+    return jsonify({'message': 'Method not allowed!'})
 
   return app

@@ -52,7 +52,7 @@ def promote_user(current_user, user_id):
             db.conn.commit()
             return jsonify({'message': 'User promoted to an admin'}), 200
         return jsonify({'message': 'User not found!'}), 404
-    return jsonify({'message': 'You are not authorized to perform this function!'}), 403
+    return jsonify({'message': 'You are not authorized to perform this function!'}), 401
 
 
 @v2_user.route('/auth/login', methods=['POST'])

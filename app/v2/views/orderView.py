@@ -33,7 +33,7 @@ def place_order(current_user):
             if item['item_name'] == food:
                 order_data.add_order()
                 return jsonify({'message': 'Order successfully placed!'}), 201
-            return jsonify({'message': 'Food item not avilable in the menu!'}), 404
+            return jsonify({'message': '{} not avilable!'.format(item['item_name'])}), 404
 
 
 @v2_order.route('/users/orders', methods=['GET'])

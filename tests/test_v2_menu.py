@@ -52,4 +52,4 @@ class TestMenu(TestSetup):
             headers={'access-token': self.admin_token})
         self.assertEqual(res.status_code, 409)
         msg = json.loads(res.data.decode("UTF-8"))
-        self.assertIn("item already exists!", msg["message"])
+        self.assertIn("already exists!", msg["message"])

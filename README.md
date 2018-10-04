@@ -1,4 +1,4 @@
-# FastFoodFastApi
+# FastFoodFastApi v2
 [![Build Status](https://travis-ci.org/gwako94/FastFoodFastApi.svg?branch=develop)](https://travis-ci.org/gwako94/FastFoodFastApi)
 [![Coverage Status](https://coveralls.io/repos/github/gwako94/FastFoodFastApi/badge.svg?branch=develop)](https://coveralls.io/github/gwako94/FastFoodFastApi?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3760e59fbf8a5ee9a086/maintainability)](https://codeclimate.com/github/gwako94/FastFoodFastApi/maintainability)
@@ -22,7 +22,9 @@ update an order and retrieve orders.
   <li><p>Deactivate the virtual environment oncedone:</p><code>deactivate</code></pre></li>
 </ul>
 
-<h2>Running the application</h2>
+<h2>Running the application</h2><pre>
+<code>python3 run.py</code>
+</pre>
 <p>Fire up postman and tests all the endpoints below:</p>
 <table>
   <thead>
@@ -33,42 +35,51 @@ update an order and retrieve orders.
     </thead>
   <tbody>
       <tr>
-          <td>POST <code>/auth/register</code></td>
+          <td>POST <code>/api/v2/auth/register</code></td>
           <td>Register a user.</td>
       </tr>
       <tr>
-          <td>POST <code>/auth/login</code></td>
+          <td>POST <code>/api/v2/auth/login</code></td>
           <td>Login a user.</td>
       </tr>
-      <tr>
-          <td>POST  <code>/api/v1/orders</code></td>
-          <td>Post an order.</td>
+          <tr>
+          <td>POST <code>/api/v2/menu</code></td>
+          <td>Post a menu</td>
+      </tr>
+          </tr>
+          <tr>
+          <td>GET <code>/api/v2/menu</code></td>
+          <td>Post a menu</td>
       </tr>
       <tr>
-          <td>GET <code>/api/v1/orders</code></td>
-          <td>Fetch all orders.</td>
+          <td>POST  <code>/api/v2/users/orders</code></td>
+          <td>GET all menu.</td>
       </tr>
       <tr>
-          <td>GET <code>/api/v1/orders/&lt;order_id&gt;</code></td>
+          <td>GET <code>/api/v2/users/orders</code></td>
+          <td>Fetch order history</td>
+      </tr>
+      <tr>
+          <td>GET <code>/api/v2/orders</code></td>
+          <td>Get all orders</td>
+      </tr>
+      <tr>
+          <td>GET <code>/api/v2/orders/&lt;order_id&gt;</code></td>
           <td>Fetch a specific order.</td>
       </tr>
       <tr>
-          <td>PUT <code>/api/v1/orders/&lt;order_id&gt;</code></td>
+          <td>PUT <code>/api/v2/orders/&lt;order_id&gt;</code></td>
           <td>Update a specific order status</td>
       </tr>
   </tbody>
 </table>
 <h2>Screenshots</h2>
 
-![get](https://user-images.githubusercontent.com/25703581/46033612-4caae480-c107-11e8-9d5c-b8ff68731e95.png)
+![v2_register](https://user-images.githubusercontent.com/25703581/46500602-e2dbba80-c82b-11e8-99d0-bfb045a0f063.png)
 
-![login](https://user-images.githubusercontent.com/25703581/46033613-4ddc1180-c107-11e8-9f31-06250c00fe8b.png)
+![place](https://user-images.githubusercontent.com/25703581/46500598-e2432400-c82b-11e8-9db3-869f6ac9388b.png)
 
-![place_order](https://user-images.githubusercontent.com/25703581/46033614-4ddc1180-c107-11e8-848b-d4f52f126cd5.png)
-
-![register](https://user-images.githubusercontent.com/25703581/46033618-4ddc1180-c107-11e8-8cfa-c191026debe4.png)
-
-![update](https://user-images.githubusercontent.com/25703581/46033619-4e74a800-c107-11e8-9105-be04708e04d9.png)
+![update](https://user-images.githubusercontent.com/25703581/46500600-e2dbba80-c82b-11e8-8d75-291c3354dcf4.png)
 
 <h2>Testing</h2>
 <p>Run the tests: </p>

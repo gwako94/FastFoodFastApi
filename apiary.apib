@@ -1,0 +1,32 @@
+FORMAT: 1A
+HOST: https://herokufastfoodapi.herokuapp.com/
+
+# FAST FOOD API
+
+An API that powers fast food application.
+
+## Users
+
+
+### Register [POST]
+
+Register a new user. It takes a JSON
+object containing username, email and password
+
++ Request (application/json)
+
+        {
+            "usename": "string",
+            "email": "string",
+            "password": "string"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            route: /v2/auth/register
+
+    + Body
+
+            "User Registered successfully"

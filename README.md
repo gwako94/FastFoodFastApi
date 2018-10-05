@@ -43,7 +43,7 @@ orders and menus. The application provide features for registering a user, loggi
       </tr>
       <tr>
           <td>PUT <code>/api/v2/users/&lt;user_id_id&gt;</code></td>
-          <td>Login a user.</td>
+          <td>Promote a user to an admin</td>
       </tr>
           <tr>
           <td>POST <code>/api/v2/menu</code></td>

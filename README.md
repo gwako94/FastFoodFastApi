@@ -8,8 +8,7 @@ A restful api to power fast-food-fast application.
 
 <h1>Description</h1>
 FastFoodFastApi is a restful api that powers a fast food fast application and helps manage
-orders and menus. The application provide features for registering a user, login the user, place an order,
-update an order and retrieve orders.
+orders and menus. The application provide features for registering a user, logging in the user, adding and gettin menu place an order,update an order and retrieve users order history.
 
 <h2>Development Setup</h2>
 <ul>
@@ -40,6 +39,10 @@ update an order and retrieve orders.
       </tr>
       <tr>
           <td>POST <code>/api/v2/auth/login</code></td>
+          <td>Login a user.</td>
+      </tr>
+      <tr>
+          <td>PUT <code>/api/v2/users/&lt;user_id_id&gt;</code></td>
           <td>Login a user.</td>
       </tr>
           <tr>
@@ -84,6 +87,9 @@ update an order and retrieve orders.
 <h2>Testing</h2>
 <p>Run the tests: </p>
 <pre><code> $ nosetests </code></pre>
+
+<h2>Hosting</h2>
+<li><a href="https://herokufastfoodapi.herokuapp.com/">Heroku</a></li>
 
 <h2>Author</h2>
   <li><a href="https://github.com/gwako94">Galgallo Wako</a></li>

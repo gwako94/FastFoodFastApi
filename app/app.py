@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, redirect
 import os
 
 from config import app_config
@@ -26,7 +26,7 @@ def create_app(env_name):
 
   @app.route('/', methods=['GET'])
   def index():
-    return '<h1 style="text-align:center; color:red;">Welcome to fast food fast api <h1>'
+    return redirect("https://galgallowako.docs.apiary.io")
 
   @app.errorhandler(KeyError)
   def key_handler(KeyError):

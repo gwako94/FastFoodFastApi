@@ -25,6 +25,7 @@ orders and menus. The application provide features for registering a user, loggi
 <code>python3 run.py</code>
 </pre>
 <p>Fire up postman and tests all the endpoints below:</p>
+<p>Create a superUser with your password of choice: and he can promote other users</p>
 <table>
   <thead>
       <tr>

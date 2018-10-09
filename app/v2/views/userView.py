@@ -41,6 +41,25 @@ def register_user():
     return jsonify({'message': 'User already exists!'}), 409
 
 
+@v2_user.route('/users', methods=['GET'])
+def get_all_users():
+    users = User.get_all_users()
+    if users:
+        user = [{
+            "id": user["id"],
+            "username": user["username"],
+            "email": user["email"],
+            "password": user["password"],
+            "admin": user["admin"],
+            "created_at": user["created_at"]
+        } for user in users]
+        return jsonify({'User': user}), 200
+    return jsonify({'message': 'No User found!'}), 404
+
+
+
+
+
 @v2_user.route('/users/<user_id>', methods=['PUT'])
 @token_required
 def promote_user(current_user, user_id):

@@ -3,7 +3,7 @@ from ..migration import Database
 
 now = datetime.datetime.now()
 db = Database()
-cur = db.conn.cursor()
+cur = db.cur
 
 
 class User(object):
@@ -37,6 +37,16 @@ class User(object):
              self.created_at))
         db.conn.commit()
         return True
+
+    @staticmethod
+    def get_all_users():
+        query = "SELECT * from users;"
+        cur.execute(query)
+        users = cur.fetchall()
+        return users
+
+
+
 
     @staticmethod
     def get_user_by_id(user_id):

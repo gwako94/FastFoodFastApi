@@ -81,7 +81,7 @@ def login():
     if not auth or not auth["username"] or not auth["password"]:
         return jsonify({'message': 'Username and password required!'}), 400
 
-    query = "SELECT username, password from users WHERE username=%s;"
+    query = "SELECT username, password, admin from users WHERE username=%s;"
     cur.execute(query, (auth['username'],))
     user = cur.fetchone()
 
@@ -90,7 +90,7 @@ def login():
 
     if check_password_hash(user['password'], auth["password"]):
         token = jwt.encode(
-            {"username": user['username'],
+            {"username": user['username'], "admin": user["admin"],
              "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=720)},
             os.getenv('SECRET_KEY'))
         return jsonify({'message': 'Login success!',

@@ -4,7 +4,11 @@ import datetime
 
 # import local files
 from app.v2.models.menuModel import Menu
+from app.v2.migration import Database
 from app.v2.auth import token_required
+
+db = Database()
+cur = db.cur
 
 menu = Blueprint('menu', __name__)
 
@@ -40,3 +44,15 @@ def get_all_menu():
         } for menu in all_menu]
         return jsonify({'Menu': menu}), 200
     return jsonify({'message': 'No menu available!'}), 404
+
+@menu.route('/<menu_id>', methods=['DELETE'])
+@token_required
+def delete_menu(current_user, menu_id):
+    menu = Menu.get_menu_by_id(menu_id)
+    if current_user["admin"]:
+        if menu:
+            query = "DELETE FROM menu WHERE menu_id=%s"
+            cur.execute(query, (menu_id, ))
+            db.conn.commit()
+            return jsonify({"message": "Item deleted successfully!"}), 200
+        return jsonify({"message": "Item not found!"}), 404

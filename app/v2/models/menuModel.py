@@ -39,6 +39,22 @@ class Menu(object):
         return True
 
     @staticmethod
+    def get_menu_by_id(menu_id):
+        query = "SELECT * FROM menu where menu_id=%s"
+        cur.execute(query, (menu_id, ))
+        menu = cur.fetchone()
+        if menu:
+            the_menu = {
+                "menu_id": menu["menu_id"],
+                "item_name": menu["item_name"],
+                "price": menu["price"],
+                "created_at": menu["created_at"]
+            }
+            return the_menu
+        return False
+
+
+    @staticmethod
     def get_all_menu():
         query = "SELECT * from menu;"
         cur.execute(query)
